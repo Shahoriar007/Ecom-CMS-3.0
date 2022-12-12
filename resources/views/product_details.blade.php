@@ -416,8 +416,16 @@
 
                     
                     <div class="add-to-cart-lg">
+                    <form>
+                                        <input type="hidden" class="pro-id" value="{{$productDetail->id}}"/>
+                                        <button type="button" class="btn-add-to-cart btn-submit" >
+                                            
+                                        ADD TO CART
+                                          
+                                        </button>
+                                        </form>
                         
-                        <a href="{{'/add-to-cart/'.$productDetail->id}}"><input type="submit" value="ADD TO CART"></a>
+                        <!--<a href="{{'/add-to-cart/'.$productDetail->id}}"><input type="submit" value="ADD TO CART"></a>-->
                         
                     </div>
 
@@ -710,6 +718,33 @@
 
         })
     </script>
+    <script type="text/javascript">
+    $(".btn-submit").click(function(e){
+        e.preventDefault();
+
+        var $button = $(this);
+        var productId = $button.parent().find("input").val();
+        var quantity = 1;
+
+        $.ajaxSetup({
+       headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       }
+   });
+
+   $.ajax({
+          type:'POST',
+          url:"{{ route('addToCart') }}",
+          data:{productId:productId, quantity:quantity},
+          success:function(data){
+             console.log(JSON.parse(data.cart));
+          }
+       });
+  
+    });
+   
+  
+</script>
 </body>
 
 </html>
