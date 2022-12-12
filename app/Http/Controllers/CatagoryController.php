@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catagory;
+use App\Models\Logo;
+use App\Models\Navbar;
 use App\Models\Product;
+
+use App\Models\Socialmedia;
 use Illuminate\Http\Request;
 
 class CatagoryController extends Controller
@@ -61,7 +65,14 @@ class CatagoryController extends Controller
     {
         $catagory = Catagory::find($id);
         $catagoryProducts = Product::where('catagory', $catagory->catagoryName)->get();
-        return view('catagoryProduct', compact('catagoryProducts'));
+
+        $catagories = Catagory::all();
+        $navigation = Navbar::all();
+        $socialMedia = Socialmedia::all();
+        $logo = Logo::get()->last();
+        
+        
+        return view('catagoryProduct', compact('catagories','catagoryProducts','navigation','socialMedia','logo'));
     }
 
     /**
