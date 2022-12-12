@@ -163,15 +163,15 @@ hr {
             Invoice
             <small class="page-info">
                 <i class="fa fa-angle-double-right text-80"></i>
-                ID: #{{$id}}
+                ID: #{{$data[0]}}
             </small>
         </h1>
 
         <div class="page-tools">
             <div class="action-buttons">
-                <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Print">
+                <a class="btn bg-white btn-light mx-1px text-95" href="{{url('/admin/invoice/'.$data[0].'/generate')}}" data-title="Print">
                     <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
-                    Print
+                    download invoice
                 </a>
                 <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
                     <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
@@ -180,16 +180,16 @@ hr {
             </div>
             <div class="my-5">
                         <level for="status">Status</level>
-                        <form enctype="multipart/form-data" method="POST" action="">
+                        <form enctype="multipart/form-data" method="POST" action="{{url('/admin/orderStatus')}}">
                             @csrf
-                            <input type="hidden" value="{{$id}}" name="order_id" class="order_id">
+                            <input type="hidden" value="{{$data[0]}}" id="order_id" name="order_id" class="order_id">
                         <select name="status" id="status" >
-                            <option data-display="{{$invoice->status}}"><?php echo "$invoice->status"  ?></option>
+                           <option data-display="{{$data[1]->status}}">{{$data[1]->status}}</option>
                             <option value="pending">pending</option>
                             <option value="processing">processing</option>
                             <option value="complete">complete</option>
                         </select>
-                        <input type="submit" value="Submit">
+                        <input type="submit" value="Submit" />
                         </form>
                     </div>
         </div>
@@ -214,13 +214,13 @@ hr {
                     <div class="col-sm-6">
                         <div>
                             <span class="text-sm text-grey-m2 align-middle">To:</span>
-                            <span class="text-600 text-110 text-blue align-middle">{{$user}}</span>
+                            <span class="text-600 text-110 text-blue align-middle">{{$data[3]}}</span>
                         </div>
                         <div class="text-grey-m2">
                             <div class="my-1">
                                Address:
                             </div>
-                            <div class="my-1"><b class="text-600">{{$invoice->address}}</b></div>
+                            <div class="my-1"><b class="text-600">{{$data[1]->address}}</b></div>
                         </div>
                     </div>
                     <!-- /.col -->
@@ -232,9 +232,9 @@ hr {
                                 Invoice
                             </div>
 
-                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> #{{$id}}</div>
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> #{{$data[0]}}</div>
 
-                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span>{{$invoice->created_at}}</div>
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span>{{$data[1]->created_at}}</div>
 
                             
                         </div>
@@ -245,7 +245,7 @@ hr {
                 <div class="mt-4">
                     <div class="row text-600 text-white bgc-default-tp1 py-25">
                 
-                        <div class="col-9 col-sm-5">Product name</div>
+                        <div class="col-9 col-sm-5">Product id</div>
                         <div class="d-none d-sm-block col-4 col-sm-2">Qty</div>
                         <div class="d-none d-sm-block col-sm-2">Unit Price</div>
                         <div class="col-2">Amount</div>
@@ -253,10 +253,10 @@ hr {
 
                     <div class="text-95 text-secondary-d3">
                         
-                   @foreach($orderDetail as $order)
+                   @foreach($data[2] as $order)
                    <div class="row mb-2 mb-sm-0 py-25">
                           
-                          <div class="col-9 col-sm-5">Domain registration</div>
+                          <div class="col-9 col-sm-5">{{$order->product_id}}</div>
                           <div class="d-none d-sm-block col-2">{{$order->quantity}}</div>
                           <div class="d-none d-sm-block col-2 text-95">{{$order->singlePrice}}</div>
                           <div class="col-2 text-secondary-d2">{{$order->quantity * $order->singlePrice}}</div>
@@ -305,7 +305,7 @@ hr {
                                     SubTotal
                                 </div>
                                 <div class="col-5">
-                                    <span class="text-120 text-secondary-d1">{{$total}}</span>
+                                    <span class="text-120 text-secondary-d1">{{$data[5]}}</span>
                                 </div>
                             </div>
 
@@ -323,7 +323,7 @@ hr {
                                     Total Amount
                                 </div>
                                 <div class="col-5">
-                                    <span class="text-150 text-success-d3 opacity-2">{{$total+150}}</span>
+                                    <span class="text-150 text-success-d3 opacity-2">{{$data[5]+150}}</span>
                                 </div>
                             </div>
                         </div>
@@ -355,7 +355,7 @@ hr {
     <script src="{{asset('assets/js/script.js')}}"></script>
     <!--=====header script=====-->
     <script src="{{asset('assets/js/main.js')}}"></script>
-    <!---<script type="text/Javascript">
+   <script type="text/Javascript">
 
 $(".button-status").click(function(e){
 e.preventDefault();
@@ -370,6 +370,15 @@ $.ajaxSetup({
     }
 });
 
+$.ajax({
+            type:'POST',
+            url:"{{ url('/admin/orderStatus') }}",
+            data:{order_id:order_id, status:status},
+            success:function(data){
+                
+                
+            }
+        });
 
 
 });
