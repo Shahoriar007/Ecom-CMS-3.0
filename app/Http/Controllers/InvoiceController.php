@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+use App\Models\Orderdetail;
 
 class InvoiceController extends Controller
 {
@@ -24,9 +27,25 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $invoice = DB::table('invoices')->find($id);
+         $orderDetail = DB::table('orderdetails')->where('orderinvoice_id', '=', $id)->get();
+         $user_ids = DB::table('orderdetails')->select('user_id')->where('orderinvoice_id', '=', $id)->get();
+         $user = DB::table('users')->select('name')->where('id', '=', $user_ids[0]->user_id)->get();
+         $products = [];
+         $total = 0;
+         foreach($orderDetail as $item){
+            $product = DB::table('products')->find($item->product_id);
+            array_push($products,$product);
+            $total = $total + ($product->price * $item->quantity);
+         }
+        
+         $data = ["samia"];
+         
+         $pdf = Pdf::loadView('orderDetail',$data);
+         return $pdf->download('invoice.pdf');
+        
     }
 
     /**

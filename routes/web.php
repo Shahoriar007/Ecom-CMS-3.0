@@ -77,9 +77,9 @@ Route::prefix('admin')->group(function(){
     Route::post('/stock',[StockController::class,'store'])->middleware(['auth:admin', 'verified'])->name('updateStock');
     Route::get('/order',[InvoiceController::class,'index'])->middleware(['auth:admin', 'verified'])->name('order');
     Route::get('/orderDetail/{id}',[OrderdetailController::class,'index'])->middleware(['auth:admin', 'verified']);
-
-    /*Route::get('/update-order-status',[OrderdetailController::class,'index'])->middleware(['auth:admin', 'verified'])->name('orderStatus');
-    Route::post('/update-order-status',[OrderdetailController::class,'store'])->middleware(['auth:admin', 'verified'])->name('updateOrderStatus');*/
+    Route::get('/invoice/{id}/generate',[InvoiceController::class,'create']);
+    /*Route::get('/update-order-status',[OrderdetailController::class,'index'])->middleware(['auth:admin', 'verified'])->name('orderStatus');*/
+    Route::post('/orderStatus',[OrderdetailController::class,'store'])->middleware(['auth:admin', 'verified']);
        
 });
  
