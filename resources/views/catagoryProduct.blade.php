@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Maknoon Lifestyle</title>
 
     <!---===========favicon=====-->
@@ -343,12 +344,12 @@
                                 <!-- Single Product Item -->
                                 <div class="single-product-item text-center mb-3">
                                     <figure class="product-thumb">
-                                        <a href="product_details.html"><img src="{{asset('images/'. $item['image1'])}}"
+                                        <a href="{{'/product/details/' . $item->id}}"><img src="{{asset('images/'. $item['image1'])}}"
                                                 alt="Products" class="img-fluid"></a>
                                     </figure>
 
                                     <div class="product-details">
-                                        <h2><a href="product_details.html">{{$item->productName}}</a></h2>
+                                        <h2><a href="{{'/product/details/' . $item->id}}">{{$item->productName}}</a></h2>
                                         <div class="product-code">
                                             <span class="code-title">Product Code: </span>
                                             <span class="code-no">S-3254</span>
@@ -358,8 +359,17 @@
                                             <span class="discount-price line-through">BDT 1500</span>
                                         </div>
 
-                                        <button type="button" class="btn-add-to-cart"> <a href="{{'/add-to-cart/'.$item['id']}}">+ Add to
-                                            Cart </a></button>
+                                        <form>
+                                        <input type="hidden" class="pro-id" value="{{$item['id']}}"/>
+                                        <button type="button" class="btn-add-to-cart btn-submit" >
+                                            
+                                        + Add to
+                                            Cart
+                                          
+                                        </button>
+                                        </form>
+
+                                        <!---<button type="button" class="btn-add-to-cart"> <a href="{{'/add-to-cart/'.$item['id']}}"> </a></button>--->
                                     </div>
 
                                     <div class="product-meta">
@@ -637,6 +647,33 @@
 
         })
     </script>
+     <script type="text/javascript">
+    $(".btn-submit").click(function(e){
+        e.preventDefault();
+
+        var $button = $(this);
+        var productId = $button.parent().find("input").val();
+        var quantity = 1;
+
+        $.ajaxSetup({
+       headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       }
+   });
+
+   $.ajax({
+          type:'POST',
+          url:"{{ route('addToCart') }}",
+          data:{productId:productId, quantity:quantity},
+          success:function(data){
+             console.log(JSON.parse(data.cart));
+          }
+       });
+  
+    });
+   
+  
+</script>
 </body>
 
 </html>

@@ -42,21 +42,9 @@ class OrderdetailController extends Controller
      */
     public function create()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-        //status change
+          //status change
        
-        $all = $request->all();
+       /* $all = $request->all();
         $id = $all['order_id'];
         $status = $all['status'];
         DB::table('invoices')
@@ -64,9 +52,9 @@ class OrderdetailController extends Controller
         ->update([
             'status' => $status
         ]);
+*/
 
-
-        $invoice = DB::table('invoices')->find($id);
+       /* $invoice = DB::table('invoices')->find($id);
          $orderDetail = DB::table('orderdetails')->where('orderinvoice_id', '=', $id)->get();
          $user_ids = DB::table('orderdetails')->select('user_id')->where('orderinvoice_id', '=', $id)->get();
          $user = DB::table('users')->select('name')->where('id', '=', $user_ids[0]->user_id)->get();
@@ -95,8 +83,29 @@ class OrderdetailController extends Controller
         //$status = $request->input['order_id'];
         //return view('random',compact('string'));
        
-        //end status change
+        //end status change*/
         
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $all = $request->all();
+        $id = $all['order_id'];
+        $status = $all['status'];
+        DB::table('invoices')
+        ->where('id', $id)
+        ->update([
+            'status' => $status
+        ]);
+        return response()->json(['hi'=>'hiiiiiiiiiiiiii']);
+
+      
         
     }
 

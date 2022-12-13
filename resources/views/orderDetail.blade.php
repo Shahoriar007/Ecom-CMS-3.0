@@ -169,18 +169,18 @@ hr {
 
         <div class="page-tools">
             <div class="action-buttons">
-                <a class="btn bg-white btn-light mx-1px text-95" href="{{url('/admin/invoice/'.$data[0].'/generate')}}" data-title="Print">
+                <a class="btn bg-white btn-light mx-1px text-95" href="{{url('/admin/view/invoice/'.$data[0])}}" target="_blank" data-title="Print">
                     <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
-                    download invoice
+                    view invoice
                 </a>
-                <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
+                <a class="btn bg-white btn-light mx-1px text-95" href="{{url('/admin/invoice/'.$data[0].'/generate')}}"  data-title="PDF">
                     <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
-                    Export
+                    download
                 </a>
             </div>
             <div class="my-5">
                         <level for="status">Status</level>
-                        <form enctype="multipart/form-data" method="POST" action="{{url('/admin/orderStatus')}}">
+                        <form enctype="multipart/form-data" method="POST" action="">
                             @csrf
                             <input type="hidden" value="{{$data[0]}}" id="order_id" name="order_id" class="order_id">
                         <select name="status" id="status" >
@@ -357,32 +357,7 @@ hr {
     <script src="{{asset('assets/js/main.js')}}"></script>
    <script type="text/Javascript">
 
-$(".button-status").click(function(e){
-e.preventDefault();
 
-var $button = $(this);
-var status = $button.parent().find("select").val();
-var order_id = $button.parent().find("input.order_id").val();
-console.log(status,order_id);
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-$.ajax({
-            type:'POST',
-            url:"{{ url('/admin/orderStatus') }}",
-            data:{order_id:order_id, status:status},
-            success:function(data){
-                
-                
-            }
-        });
-
-
-});
-</script>--->
 
 </body>
 </html>

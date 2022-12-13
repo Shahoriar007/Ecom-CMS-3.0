@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,24 +9,24 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Maknoon Lifestyle</title>
 
-    <!---===========favicon=====-->
+    
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/logo/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/img/logo/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/img/logo/favicon/favicon-16x16.png">
     <link rel="manifest" href="assets/img/logo/favicon/site.webmanifest">
 
-    <!--======== Bootstrap 4.6===-->
+  
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!--======== font awesome===-->
+    
     <link rel="stylesheet" href="assets/css/all.min.css">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-    <!---======= owl carousel======-->
+   
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
 
-    <!---======= Header css-->
+
     <link rel="stylesheet" href="assets/css/header-css/reset.min.css">
-    <!---==========zoom css=========-->
+  
     <link rel="stylesheet" href="assets/css/swiper.min.css">
     <link rel="stylesheet" href="assets/css/easyzoom.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -78,6 +79,7 @@
 </form>
 
 
+
  <!---=====jquery====-->
  <script src="assets/js/jquery-3.6.0.min.js"></script>
     <!--=====popper js=====-->
@@ -114,7 +116,7 @@
         url:"{{ route('checkout') }}",
         data:{name:name, email:email, phone:phone, address:address, city:city, zip:zip},
         success: function(data){
-            console.log('hiiiiiiiiiii');
+            alert("your order submitted successfully");
         }
       });
 

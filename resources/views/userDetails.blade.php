@@ -22,8 +22,12 @@
     <!---======= owl carousel======-->
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+
     <!---======= Header css-->
     <link rel="stylesheet" href="assets/css/header-css/reset.min.css">
+    <!---==========zoom css=========-->
+    <link rel="stylesheet" href="assets/css/swiper.min.css">
+    <link rel="stylesheet" href="assets/css/easyzoom.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
 
@@ -36,13 +40,12 @@
     <header class="header" id="header-area">
         <div class="container">
             <section class="wrapper">
-            <!----------------dynamic logo---------------->
                 <div class="header-item-left">
                     <a href="index.html" class="brand">
-                        <img src="{{asset('images/'. $logo->image)}}" alt="logo not found">
+                        <img src="assets/img/logo/logo.png" alt="logo not found">
                     </a>
                 </div>
-            <!------------daynamic navigation bar-------------------->
+                <!-- Navbar Section -->
                 <div class="header-item-center">
                     <div class="overlay"></div>
                     <nav class="menu" id="menu">
@@ -53,33 +56,76 @@
                             <button type="button" class="menu-mobile-close"><i class="ion ion-ios-close"></i></button>
                         </div>
                         <ul class="menu-section mb-0">
-                        <li class="menu-item-has-children">
+                            <li class="menu-item blinking"><a href="new_arrival.html">New Arrivals</a></li>
+                            <li class="menu-item-has-children">
                                 <a href="#">Products <i class="fas fa-chevron-down"></i> </a>
                                 <div class="menu-subs menu-mega menu-column-4">
-                                @foreach($catagories as $catagory)
                                     <div class="list-item text-center">
-                                        <a href="{{'/catagory/' . $catagory->id}}">
-                                            <img src="{{asset('images/'.$catagory->image)}}" loading="lazy"
+                                        <a href="#">
+                                            <img src="assets/img/product/panjabi/p1.jpg" loading="lazy"
                                                 alt="Product Images">
-                                            <h4 class="title">{{$catagory->catagoryName}}</h4>
-                                        </a> 
+                                            <h4 class="title">Panjabi</h4>
+                                        </a>
                                     </div>
-                                @endforeach
+                                    <div class="list-item text-center">
+                                        <a href="#">
+                                            <img src="assets/img/product/jubba/jubba.jpg" loading="lazy"
+                                                alt="Product Images">
+                                            <h4 class="title">Product Two</h4>
+                                        </a>
+                                    </div>
+                                    <div class="list-item text-center">
+                                        <a href="#">
+                                            <img src="assets/img/product/tupi/tupi.jpg" loading="lazy"
+                                                alt="Product Images">
+                                            <h4 class="title">Tupi</h4>
+                                        </a>
+                                    </div>
+                                    <div class="list-item text-center">
+                                        <a href="#">
+                                            <img src="assets/img/product/fragrance/attar.jpg" loading="lazy"
+                                                alt="Product Images">
+                                            <h4 class="title">Fragrance</h4>
+                                        </a>
+                                    </div>
+                                    <div class="list-item text-center">
+                                        <a href="#">
+                                            <img src="assets/img/product/panjabi/p1.jpg" loading="lazy"
+                                                alt="Product Images">
+                                            <h4 class="title">Panjabi</h4>
+                                        </a>
+                                    </div>
+                                    <div class="list-item text-center">
+                                        <a href="#">
+                                            <img src="assets/img/product/jubba/jubba.jpg" loading="lazy"
+                                                alt="Product Images">
+                                            <h4 class="title">Product Two</h4>
+                                        </a>
+                                    </div>
+                                    <div class="list-item text-center">
+                                        <a href="#">
+                                            <img src="assets/img/product/tupi/tupi.jpg" loading="lazy"
+                                                alt="Product Images">
+                                            <h4 class="title">Tupi</h4>
+                                        </a>
+                                    </div>
+                                    <div class="list-item text-center">
+                                        <a href="#">
+                                            <img src="assets/img/product/fragrance/attar.jpg" loading="lazy"
+                                                alt="Product Images">
+                                            <h4 class="title">Fragrance</h4>
+                                        </a>
+                                    </div>
                                 </div>
                             </li>
-
-                            @foreach($navigation as $navItem)
-               
-                            <li class="menu-item"><a href="{{$navItem->url}}">{{$navItem->title}}</a></li>
-               
-                            @endforeach
-
-                           
+                            <li class="menu-item"><a href="blog.html">Blog</a></li>
+                            <li class="menu-item"><a href="contact.html">Contact Us</a></li>
+                            <li class="menu-item"><a href="sale.html">Sale</a></li>
                         </ul>
                     </nav>
                 </div>
 
-            <!-------------search, mini cart,sidenav---------------->
+
                 <div class="header-right-meta text-right header-item-righ">
                     <ul>
                         <li><a href="#" class="modal-active"><i class="fa fa-search"></i></a></li>
@@ -88,12 +134,13 @@
                                 <dl class="my-account">
                                     <dt>My Account</dt>
                                     <dd><a href="profile.html">Profile</a></dd>
-                                    <dd><a href="{{'/login'}}">Sign</a></dd>
+                                    <dd><a href="login.html">Sign</a></dd>
                                 </dl>
                             </div>
                         </li>
-                        <li class="shop-cart">                                       <!--onclick="openNav()"-->
-                        <a href="{{route('shoppingCart')}}"><i class="fa fa-shopping-bag" style="font-size: 20px;" ></i> </a>
+                        <li class="shop-cart">
+                            <i class="fa fa-shopping-bag" style="font-size: 20px;" onclick="openNav()"></i> <span
+                                class="count">3</span>
                             <div id="mySidenav" class="sidenav">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Close</a>
 
@@ -210,7 +257,7 @@
                                         </div>
                                     </div>
                                     <div class="mini-cart-footer">
-                                        <a href="{{route('shoppingCart')}}" class="btn-add-to-cart mb-2">View Cart</a>
+                                        <a href="shopping_cart.html" class="btn-add-to-cart mb-2">View Cart</a>
                                         <a href="checkout.html" class="btn-add-to-cart">Checkout</a>
                                     </div>
                                 </div>
@@ -233,7 +280,7 @@
 
     <!--== Search Box Area Start ==-->
     <div class="body-popup-modal-area">
-        <span class="modal-close"><img src="assets/img/cancel.png" alt="Close" class="img-fluid" /></span>
+        <span class="modal-close"><img src="assets/img/cancel.png" alt="Close" class="img-responsive" /></span>
         <div class="modal-container d-flex">
             <div class="search-box-area">
                 <div class="search-box-form">
@@ -247,267 +294,125 @@
     </div>
     <!--== Search Box Area End ==-->
 
-    <!---==================slider start====================-->
-    <section class="slider-part">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="owl-carousel owl-theme slider-carousel">
-
-                        @foreach($slider as $item)
-                        <div class="item">
-                            <a href="#">
-                                <img src="{{asset('images/'. $item->image)}}" alt="slider img not found">
-                            </a>
-                        </div>
-                        @endforeach
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!---==================slider end====================-->
 
 
-    <!--=========Product banner start===================-->
-    <section class="p-tb-60 section-bg">
-        <div class="container container-xxl">
-            <div class="row">
-                <?php $iteration = 0 ?>
-                @foreach($latest as $item)
-                    <?php $iteration = $iteration+1 ?>
-                    @if($iteration == 2)
-                    <div class="col-md-4">
-                    <div class="banner banner-border">
-                        <a href="{{'/product/details/' . $item->id}}">
-                            <img src="{{asset('images/' . $item->image1)}}" class="img-responsive" alt="">
-                        </a>
-                        <div class="banner-content">
-                            <div class="banner-title">
-                                <h3>Exclusive collection</h3>
+
+
+<!--== Page Content Wrapper Start ==-->
+<div class="main-content pb-60">
+    <div class="container container-xxl">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- My Account Page Start -->
+                <div class="myaccount-page-wrapper">
+                    <!-- My Account Tab Menu Start -->
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="myaccount-tab-menu nav" role="tablist">
+                            <a href="{{route('dashboard')}}"  >
+                                    Dashboard</a>
+
+                                    <a href="{{route('orders')}}" >Orders</a>
+
+                                <a href="{{route('address')}}" >address</a>
+
+                                <a href="{{route('details')}}" class="active">Account Details</a>
+
+                                <a href="{{route('login')}}">Logout</a>
                             </div>
-                            <a href="{{'/product/details/' . $item->id}}" class="link1">
-                                Discover Now
-                                <i class="fas fa-long-arrow-alt-right"></i>
-                            </a>
                         </div>
-                    </div>
-                    <div class="banner-content-out">
-                            <h3>Exclusive collection</h3>
-                            <p>Grab Your Product</p>
-                    </div>
-                    </div>
-                    
-                    @else
-                        <div class="col-md-4">
-                    <div class="banner banner-border">
-                        <a href="{{'/product/details/' . $item->id}}">
-                            <img src="{{asset('images/' . $item->image1)}}" class="img-responsive" alt="">
-                        </a>
-                        <div class="banner-content">
-                            <div class="banner-title">
-                                <h3>Exclusive collection</h3>
-                            </div>
-                            <a href="{{'/product/details/' . $item->id}}" class="link1">
-                                Discover Now
-                                <i class="fas fa-long-arrow-alt-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    </div>
-                    
-                    @endif
+                        <!-- My Account Tab Menu End -->
 
-                @endforeach
-            </div>
-        </div>
-    </section>
+                        <!-- My Account Tab Content Start -->
+                        <div class="col-lg-9 mt-5 mt-lg-0">
+                            <div class="tab-content" id="myaccountContent">
+                                
+                               <!-- Single Tab Content Start -->
+                               <div >
+                                    <div class="myaccount-content">
+                                        <h3>Account Details</h3>
 
-    <!--=========Product banner end=====================-->
+                                        <div class="account-details-form">
+                                            <form method="POST" action="{{route('accountDetails')}}" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="single-input-item">
+                                                            <label for="first-name">First Name</label>
+                                                            <input type="text" id="first-name" name="first-name"   required
+                                                                   placeholder="First Name"/>
+                                                        </div>
+                                                    </div>
 
-    <!--===========product category slider======-->
-    <section class="p-tb-60  pattern-3" style="position: relative;">
-        <div class="container-fluid">
-            <div class="heading">
-                <h2>
-                    Product category
-                </h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <div class="owl-carousel owl-theme product-carousel">
-                        <div class="item text-center">
-                            <a href="#">
-                                <img src="assets/img/product/jubba/1x1/j1.png" alt="slider img not found">
-                                <span>Panjabi</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="assets/img/product/tupi/1x1/t1.png" alt="slider img not found">
-                                <span>Tupi</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="assets/img/product/jubba/1x1/j1.png" alt="slider img not found">
-                                <span>Jubba</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="assets/img/product/fragrance/1x1/a1.png" alt="slider img not found">
-                                <span>Fragrance</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="assets/img/product/tupi/1x1/t1.png" alt="slider img not found">
-                                <span>Tupi</span>
-                            </a>
-                        </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="single-input-item">
+                                                            <label for="last-name" >Last Name</label>
+                                                            <input type="text" id="last-name" name="last-name" required placeholder="Last Name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--===========product category slider======-->
+                                                <div class="single-input-item">
+                                                    <label for="display-name" ></label>
+                                                    <input type="text" id="display-name" name="display-name" required placeholder="Display Name" />
+                                                </div>
 
-    <!--===========new arrivals start============-->
-    <!--== Page Content Wrapper Start ==-->
-    <div id="page-content-wrapper" class="pt-60">
-        <div class="container container-xxl">
-            <div class="heading">
-                <h2>
-                    Our Products
-                </h2>
-            </div>
+                                                <div class="single-input-item">
+                                                    <label for="email" ></label>
+                                                    <input type="email" id="email" name="email" required placeholder="Email Address" />
+                                                </div>
 
-            <!-- Shop Page Content Start -->
+                                                <fieldset>
+                                                    <legend>Password change</legend>
+                                                    <div class="single-input-item">
+                                                        <label for="current-pwd" >Current
+                                                            Password</label>
+                                                        <input type="password" id="current-pwd" name="current-pwd"
+                                                               placeholder="Current Password" required />
+                                                    </div>
 
-            <div class="shop-page-content-wrap">
-                <div class="shop-page-products-wrap">
-                    <div class="products-wrapper">
-                        <div class="row">
-                        @foreach($top as $item)
-                            <div class="col-lg-3 col-sm-6 col-6 p-x-5">
-                                <!-- Single Product Item -->
-                                <div class="single-product-item text-center mb-3">
-                                    <figure class="product-thumb">
-                                        <a href="{{'/product/details/' . $item->id}}"><img src="{{asset('images/'. $item->image1)}}" class="pro-img"
-                                                alt="Products" class="img-fluid"></a>
-                                    </figure>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="single-input-item">
+                                                                <label for="new-pwd" >New
+                                                                    Password</label>
+                                                                <input type="password" id="new-pwd" name="new-pwd"
+                                                                       placeholder="New Password" required />
+                                                            </div>
+                                                        </div>
 
-                                    <div class="product-details">
-                                        
-                                        <h2><a href="{{'/product/details/' . $item->id}}" class="pro-name">{{$item->productName}}</a></h2>
-                                        <div class="product-code">
-                                            <span class="code-title">Product Code: </span>
-                                            <span class="code-no">S-3254</span>
+                                                        <div class="col-lg-6">
+                                                            <div class="single-input-item">
+                                                                <label for="confirm-pwd" >Confirm
+                                                                    Password</label>
+                                                                <input type="password" id="confirm-pwd" name="confirm-pwd"
+                                                                       placeholder="Confirm Password" required />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+
+                                                <div class="single-input-item">
+                                                    <input class="btn-login btn-add-to-cart btn-user-details" type="submit" value="Save Changes">
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div class="price-div">
-                                            <span class="price">{{"BDT ". $item->price}}</span>
-                                            <span class="discount-price line-through">BDT 1500</span>
-                                        </div>
-
-                                        <form>
-                                        <input type="hidden" class="pro-id" value="{{$item->id}}"/>
-                                        <button type="button" class="btn-add-to-cart btn-submit" >
-                                            
-                                                +Add to Cart
-                                          
-                                        </button>
-                                        </form>
-                                       
                                     </div>
-
-                                    <div class="product-meta">
-                                        <!--<button type="button" data-toggle="modal" data-target="#quickView">
-                                                    <span data-toggle="tooltip" data-placement="left"
-                                                        title="Quick View"><i class="fas fa-eye"></i>
-                                                </button>
-                                                
-                                                <a href="#" data-toggle="tooltip" data-placement="left"
-                                                    title="Compare"><i class="fas fa-tag"></i></a>-->
-
-                                        <a href="#" data-toggle="tooltip" data-placement="left"
-                                            title="Add to Wishlist"><i class="fas fa-heart"></i></a>
-                                    </div>
-                                    <span class="product-bedge">New</span>
                                 </div>
-                                <!-- Single Product Item -->
+                                <!-- Single Tab Content End -->
+
+                                
                             </div>
-                            @endforeach
                         </div>
+                        <!-- My Account Tab Content End -->
                     </div>
                 </div>
-            </div>
-
-            <!-- Shop Page Content End -->
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="view-more">
-                        <a href="product_list.html">
-                            <i class="fas fa-eye"></i>
-                            view more
-
-                        </a>
-                    </div>
-                </div>
+                <!-- My Account Page End -->
             </div>
         </div>
     </div>
-    <!--== Page Content Wrapper End ==-->
-    <!--===========new arrivals end============-->
-
-    <!--============product banner image =======-->
-    <section class="p-tb-60">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 mx-auto">
-                    <div class="product-banner-2">
-                        <a href="product_list.htmk">
-                            <img src="assets/img/banner/012.jpg" class="img-responsive" alt="banner image not found">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--============product banner image =======-->
-
-    <!--=================news letter==========-->
-
-    <section class="p-tb-60 section-bg">
-        <div class="container container-xxl">
-            <div class="row">
-                <div class="col-md-6 mx-auto">
-                    <div class="newsletter-section">
-                        <h1 class="title">Join our Newsletter</h1>
-                        <div class="input-wrapper">
-                            <label for="newsletter" class="label-text">Enter your Email to Join</label>
-                            <input type="text" id="newsletter">
-                            <button class="btn arrow-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                    class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--=================news letter==========-->
-
-
-
-
+</div>
+<!--== Page Content Wrapper End ==-->
     <!--===============Footer start=============-->
     <footer class="d-flex-column" style="border-top: 1px solid #c5c5c5;">
         <div class="container container-xxl text-left p-tb-60 ">
@@ -599,20 +504,7 @@
 
                     <div class="pt-2 center-text">
                         <ul class="list-unstyled list-inline">
-                            @foreach($socialMedia as $item)
                             <li class="list-inline-item">
-                                <a href="{{$item->link}}" class="sbtn btn-large mx-1" title="Facebook">
-                                @if($item->name == "facebook")
-                                <i class= "fab fa-facebook-f" ></i>
-                                @elseif($item->name == "instagram")
-                                <i class="fab fa-instagram"></i>
-                                @elseif($item->name == "pinterest")
-                                <i class="fab fa-pinterest-p"></i>
-                                @endif
-                                </a>
-                            </li> 
-                            @endforeach
-                            <!---------------<li class="list-inline-item">
                                 <a href="#!" class="sbtn btn-large mx-1" title="Facebook">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
@@ -628,7 +520,6 @@
                                     <i class="fab fa-pinterest-p"></i>
                                 </a>
                             </li>
-                            ---------------------->
                         </ul>
                     </div>
                 </div>
@@ -654,8 +545,13 @@
     <!--=====header script=====-->
     <script src="assets/js/script.js"></script>
     <!--=====header script=====-->
+    <!--===========zoom ============-->
+    <script src="assets/js/swiper.min.js"></script>
+    <script src="assets/js/easyzoom.js"></script>
+
     <script src="assets/js/main.js"></script>
-   <!---- <script type="text/Javascript">
+
+    <script type="text/Javascript">
         $(".button-qty").on("click", function() {
     
         var $button = $(this);
@@ -675,9 +571,7 @@
     $button.parent().find("input").val(newVal);
     
     });
-
-   
-    </script>----->
+      </script>
     <script>
         /* Set the width of the side navigation to 250px */
         function openNav() {
@@ -688,59 +582,61 @@
                 document.getElementById("mySidenav").style.width = "90vw";
             }
         }
-
         /* Set the width of the side navigation to 0 */
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
 
         }
     </script>
-     
-     <script type="text/javascript">
-    $(".btn-submit").click(function(e){
-        e.preventDefault();
 
-        var $button = $(this);
-        var productId = $button.parent().find("input").val();
-        var quantity = 1;
 
-        $.ajaxSetup({
-       headers: {
-           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-       }
-   });
-
-   $.ajax({
-          type:'POST',
-          url:"{{ route('addToCart') }}",
-          data:{productId:productId, quantity:quantity},
-          success:function(data){
-             console.log(JSON.parse(data.cart));
-          }
-       });
-  
-    });
-   
-  
-</script>
 
     <script>
-        /******newsletter */
-        let input = document.querySelector('#newsletter');
-        let labelText = document.querySelector('.label-text');
-        let root = document.querySelector('body');
+        $(document).ready(function () {
+            // product Gallery and Zoom
+            // activation carousel plugin
+            var galleryThumbs = new Swiper('.gallery-thumbs', {
+                spaceBetween: 5,
+                freeMode: true,
+                watchSlidesVisibility: true,
+                watchSlidesProgress: true,
+                on: {
+                    init: function () {
+                        console.log('swiper initialized');
+                        // activation zoom plugin
+                        var $easyzoom = $('.easyzoom').easyZoom();
+                    },
+                },
+                breakpoints: {
+                    0: {
+                        slidesPerView: 3,
+                    },
+                    992: {
+                        slidesPerView: 4,
+                    },
+                }
+            });
+            var galleryTop = new Swiper('.gallery-top', {
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                thumbs: {
+                    swiper: galleryThumbs
+                },
+            });
+            // change carousel item height
+            // gallery-top
+            let productCarouselTopWidth = $('.gallery-top').outerWidth();
+            $('.gallery-top').css('height', productCarouselTopWidth);
 
-        input.addEventListener('click', () => {
-            labelText.classList.add('label-text-up');
-        });
+            // gallery-thumbs
+            let productCarouselThumbsItemWith = $('.gallery-thumbs .swiper-slide').outerWidth();
+            $('.gallery-thumbs').css('height', productCarouselThumbsItemWith);
 
-        document.addEventListener('mousedown', () => {
-            if (!input.value) {
-                labelText.classList.remove('label-text-up');
-            }
-        });
+        })
     </script>
-
 </body>
 
 </html>

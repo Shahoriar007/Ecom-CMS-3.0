@@ -13,6 +13,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderdetailController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\UserController;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,10 @@ Route::post('/update-cart',[CartController::class,'updateCart'])->name('updateSh
 Route::get('/catagory/{id}',[CatagoryController::class, 'show'])->name('catagoryProducts');
 Route::get('/checkout',[CheckoutController::class, 'checkoutPage'])->middleware(['auth'])->name('checkoutPage');
 Route::post('/checkout', [CheckoutController::class, 'checkout'])->middleware(['auth'])->name('checkout');
+Route::get('/orders', [UserController::class,'orders'])->middleware(['auth'])->name('orders');
+Route::get('/address', [UserController::class,'address'])->middleware(['auth'])->name('address');
+Route::get('/details', [UserController::class,'details'])->middleware(['auth'])->name('details');
+Route::post('/dashboard', [UserController::class, 'changeDetails'] )->middleware(['auth'])->name('accountDetails');
 
 //Route::get('/ajaxRequest', [AjaxController::class, 'ajaxRequest']);
 //Route::post('/ajaxRequest', [AjaxController::class, 'ajaxRequestPost'])->name('ajaxRequest.post');
@@ -77,9 +82,10 @@ Route::prefix('admin')->group(function(){
     Route::post('/stock',[StockController::class,'store'])->middleware(['auth:admin', 'verified'])->name('updateStock');
     Route::get('/order',[InvoiceController::class,'index'])->middleware(['auth:admin', 'verified'])->name('order');
     Route::get('/orderDetail/{id}',[OrderdetailController::class,'index'])->middleware(['auth:admin', 'verified']);
-    Route::get('/invoice/{id}/generate',[InvoiceController::class,'create']);
+    Route::get('/view/invoice/{id}', [InvoiceController::class,'viewInvoice']);
+    Route::get('/invoice/{id}/generate',[InvoiceController::class,'generateInvoice']);
     /*Route::get('/update-order-status',[OrderdetailController::class,'index'])->middleware(['auth:admin', 'verified'])->name('orderStatus');*/
-    Route::post('/orderStatus',[OrderdetailController::class,'store'])->middleware(['auth:admin', 'verified']);
+    Route::post('/orderStatus',[OrderdetailController::class,'store'])->middleware(['auth:admin', 'verified'])->name('orderStatus');
        
 });
  

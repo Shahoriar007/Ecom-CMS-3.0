@@ -29,22 +29,7 @@ class InvoiceController extends Controller
      */
     public function create($id)
     {
-        $invoice = DB::table('invoices')->find($id);
-         $orderDetail = DB::table('orderdetails')->where('orderinvoice_id', '=', $id)->get();
-         $user_ids = DB::table('orderdetails')->select('user_id')->where('orderinvoice_id', '=', $id)->get();
-         $user = DB::table('users')->select('name')->where('id', '=', $user_ids[0]->user_id)->get();
-         $products = [];
-         $total = 0;
-         foreach($orderDetail as $item){
-            $product = DB::table('products')->find($item->product_id);
-            array_push($products,$product);
-            $total = $total + ($product->price * $item->quantity);
-         }
         
-         $data = ["samia"];
-         
-         $pdf = Pdf::loadView('orderDetail',$data);
-         return $pdf->download('invoice.pdf');
         
     }
 
@@ -67,7 +52,7 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        //
+        
     }
 
     /**
@@ -102,5 +87,51 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice)
     {
         //
+    }
+    public function viewInvoice($id){
+
+         $invoice = DB::table('invoices')->find($id);
+         $orderDetail = DB::table('orderdetails')->where('orderinvoice_id', '=', $id)->get();
+         $user_ids = DB::table('orderdetails')->select('user_id')->where('orderinvoice_id', '=', $id)->get();
+         $user = DB::table('users')->select('name')->where('id', '=', $user_ids[0]->user_id)->get();
+         $products = [];
+         $total = 0;
+         foreach($orderDetail as $item){
+            $product = DB::table('products')->find($item->product_id);
+            array_push($products,$product);
+            $total = $total + ($product->price * $item->quantity);
+         }
+         $data = array(
+            "user"=>$user[0],
+            "invoice"=>$invoice,
+            "products"=>$products,
+            "orderDetail"=>$orderDetail,
+            "total"=>$total
+        );
+        return view('generate_invoice',compact('data'));
+        
+    }
+    public function generateInvoice($id){
+        $invoice = DB::table('invoices')->find($id);
+         $orderDetail = DB::table('orderdetails')->where('orderinvoice_id', '=', $id)->get();
+         $user_ids = DB::table('orderdetails')->select('user_id')->where('orderinvoice_id', '=', $id)->get();
+         $user = DB::table('users')->select('name')->where('id', '=', $user_ids[0]->user_id)->get();
+         $products = [];
+         $total = 0;
+         foreach($orderDetail as $item){
+            $product = DB::table('products')->find($item->product_id);
+            array_push($products,$product);
+            $total = $total + ($product->price * $item->quantity);
+         }
+        // dd($orderDetail[0]);
+         $data = array(
+            "user"=>$user[0],
+            "invoice"=>$invoice,
+            "products"=>$products,
+            "orderDetail"=>$orderDetail,
+            "total"=>$total
+        );
+        $pdf = Pdf::loadView('generate_invoice',compact('data'));
+        return $pdf->download('invoice.pdf');
     }
 }
