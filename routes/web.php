@@ -42,15 +42,11 @@ Route::get('/orders', [UserController::class,'orders'])->middleware(['auth'])->n
 Route::get('/address', [UserController::class,'address'])->middleware(['auth'])->name('address');
 Route::get('/details', [UserController::class,'details'])->middleware(['auth'])->name('details');
 Route::post('/dashboard', [UserController::class, 'changeDetails'] )->middleware(['auth'])->name('accountDetails');
+Route::post('/remove/cart/product', [CartController::class, 'removeCartProduct'])->name('removeCartProduct');
+Route::get('/allProducts',[ProductController::class,'showAllProducts'])->name('allProducts');
+Route::get('/dashboard', [UserController::class, 'viewDashboard'] )->middleware(['auth'])->name('dashboard');
 
-//Route::get('/ajaxRequest', [AjaxController::class, 'ajaxRequest']);
-//Route::post('/ajaxRequest', [AjaxController::class, 'ajaxRequestPost'])->name('ajaxRequest.post');
 
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 

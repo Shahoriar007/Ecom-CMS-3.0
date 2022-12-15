@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Catagory;
 use App\Models\Product;
+use App\Models\Logo;
+use App\Models\Navbar;
 use Illuminate\Http\Request;
 
 class CatagoryController extends Controller
@@ -61,7 +63,10 @@ class CatagoryController extends Controller
     {
         $catagory = Catagory::find($id);
         $catagoryProducts = Product::where('catagory', $catagory->catagoryName)->get();
-        return view('catagoryProduct', compact('catagoryProducts'));
+        $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
+        return view('catagoryProduct', compact('catagoryProducts','catagories','logo','navigation'));
     }
 
     /**

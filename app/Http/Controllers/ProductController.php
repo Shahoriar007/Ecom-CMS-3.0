@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Catagory;
-use App\Models\Product;
 use App\Models\Productimage;
 use App\Cart;
+use App\Models\Catagory;
+use App\Models\Product;
+use App\Models\Logo;
+use App\Models\Navbar;
 use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session as FacadesSession;
@@ -93,7 +95,10 @@ class ProductController extends Controller
 
         $images = Product::find($id)->productImage;
         $productDetail = Product::find($id);
-        return view('product_details', compact('productDetail','images')) ;
+        $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
+        return view('product_details', compact('productDetail','images','catagories','logo','navigation')) ;
     }
 
     /**
@@ -128,6 +133,15 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+    // Show all products
+    public function showAllProducts()
+    {   
+        $allProductsData = Product::all();
+        $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
+        return view('allProducts', compact('allProductsData','catagories','logo','navigation')) ;
     }
     
    

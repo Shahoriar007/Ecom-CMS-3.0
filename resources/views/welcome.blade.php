@@ -38,7 +38,7 @@
             <section class="wrapper">
             <!----------------dynamic logo---------------->
                 <div class="header-item-left">
-                    <a href="index.html" class="brand">
+                    <a href="{{route('welcome')}}" class="brand">
                         <img src="{{asset('images/'. $logo->image)}}" alt="logo not found">
                     </a>
                 </div>
@@ -450,7 +450,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="view-more">
-                        <a href="product_list.html">
+                        <a href="{{ route('allProducts') }}">
                             <i class="fas fa-eye"></i>
                             view more
 

@@ -36,16 +36,17 @@
 
 
 <body class="pattern-bg">
-    <!----===============header start===============-->
-    <header class="header" id="header-area">
+      <!----===============header start===============-->
+      <header class="header" id="header-area">
         <div class="container">
             <section class="wrapper">
+            <!----------------dynamic logo---------------->
                 <div class="header-item-left">
-                    <a href="index.html" class="brand">
-                        <img src="{{ asset('assets/img/logo/logo.png')}}" alt="logo not found">
+                    <a href="{{route('welcome')}}" class="brand">
+                        <img src="{{asset('images/'. $logo->image)}}" alt="logo not found">
                     </a>
                 </div>
-                <!-- Navbar Section -->
+            <!------------daynamic navigation bar-------------------->
                 <div class="header-item-center">
                     <div class="overlay"></div>
                     <nav class="menu" id="menu">
@@ -56,76 +57,33 @@
                             <button type="button" class="menu-mobile-close"><i class="ion ion-ios-close"></i></button>
                         </div>
                         <ul class="menu-section mb-0">
-                            <li class="menu-item blinking"><a href="new_arrival.html">New Arrivals</a></li>
-                            <li class="menu-item-has-children">
+                        <li class="menu-item-has-children">
                                 <a href="#">Products <i class="fas fa-chevron-down"></i> </a>
                                 <div class="menu-subs menu-mega menu-column-4">
+                                @foreach($catagories as $catagory)
                                     <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="{{ asset('assets/img/product/panjabi/p1.jpg')}}" loading="lazy"
+                                        <a href="{{'/catagory/' . $catagory->id}}">
+                                            <img src="{{asset('images/'.$catagory->image)}}" loading="lazy"
                                                 alt="Product Images">
-                                            <h4 class="title">Panjabi</h4>
-                                        </a>
+                                            <h4 class="title">{{$catagory->catagoryName}}</h4>
+                                        </a> 
                                     </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="{{ asset('assets/img/product/jubba/jubba.jpg')}}" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Product Two</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="{{ asset('assets/img/product/tupi/tupi.jpg')}}" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Tupi</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="{{ asset('assets/img/product/fragrance/attar.jpg')}}" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Fragrance</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="{{ asset('assets/img/product/panjabi/p1.jpg')}}" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Panjabi</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="{{ asset('assets/img/product/jubba/jubba.jpg')}}" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Product Two</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="{{ asset('assets/img/product/tupi/tupi.jpg')}}" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Tupi</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="{{ asset('assets/img/product/fragrance/attar.jpg')}}" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Fragrance</h4>
-                                        </a>
-                                    </div>
+                                @endforeach
                                 </div>
                             </li>
-                            <li class="menu-item"><a href="blog.html">Blog</a></li>
-                            <li class="menu-item"><a href="contact.html">Contact Us</a></li>
-                            <li class="menu-item"><a href="sale.html">Sale</a></li>
+
+                            @foreach($navigation as $navItem)
+               
+                            <li class="menu-item"><a href="{{$navItem->url}}">{{$navItem->title}}</a></li>
+               
+                            @endforeach
+
+                           
                         </ul>
                     </nav>
                 </div>
 
-
+            <!-------------search, mini cart,sidenav---------------->
                 <div class="header-right-meta text-right header-item-righ">
                     <ul>
                         <li><a href="#" class="modal-active"><i class="fa fa-search"></i></a></li>
@@ -134,13 +92,12 @@
                                 <dl class="my-account">
                                     <dt>My Account</dt>
                                     <dd><a href="profile.html">Profile</a></dd>
-                                    <dd><a href="login.html">Sign</a></dd>
+                                    <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
                         </li>
-                        <li class="shop-cart">
-                            <i class="fa fa-shopping-bag" style="font-size: 20px;" onclick="openNav()"></i> <span
-                                class="count">3</span>
+                        <li class="shop-cart">                                       <!--onclick="openNav()"-->
+                        <a href="{{route('shoppingCart')}}"><i class="fa fa-shopping-bag" style="font-size: 20px;" ></i> </a>
                             <div id="mySidenav" class="sidenav">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Close</a>
 
@@ -150,7 +107,7 @@
                                         <div class="single-cart-item d-flex">
                                             <figure class="product-thumb">
                                                 <a href="#"><img class="img-fluid"
-                                                        src="{{ asset('assets/img/product/panjabi/p1.jpg')}}" alt="Products" /></a>
+                                                        src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
                                             </figure>
 
                                             <div class="product-details">
@@ -186,7 +143,7 @@
                                         <div class="single-cart-item d-flex">
                                             <figure class="product-thumb">
                                                 <a href="#"><img class="img-fluid"
-                                                        src="{{ asset('assets/img/product/panjabi/p1.jpg')}}" alt="Products" /></a>
+                                                        src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
                                             </figure>
                                             <div class="product-details">
                                                 <h2><a href="#">Sprite Yoga Companion</a></h2>
@@ -219,7 +176,7 @@
                                         <div class="single-cart-item d-flex">
                                             <figure class="product-thumb">
                                                 <a href="#"><img class="img-fluid"
-                                                        src="{{ asset('assets/img/product/panjabi/p1.jpg')}}" alt="Products" /></a>
+                                                        src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
                                             </figure>
                                             <div class="product-details">
                                                 <h2><a href="#">Sprite Yoga Companion</a></h2>
@@ -257,7 +214,7 @@
                                         </div>
                                     </div>
                                     <div class="mini-cart-footer">
-                                        <a href="shopping_cart.html" class="btn-add-to-cart mb-2">View Cart</a>
+                                        <a href="{{route('shoppingCart')}}" class="btn-add-to-cart mb-2">View Cart</a>
                                         <a href="checkout.html" class="btn-add-to-cart">Checkout</a>
                                     </div>
                                 </div>
@@ -280,7 +237,7 @@
 
     <!--== Search Box Area Start ==-->
     <div class="body-popup-modal-area">
-        <span class="modal-close"><img src="{{ asset('assets/img/cancel.png')}}" alt="Close" class="img-responsive" /></span>
+        <span class="modal-close"><img src="assets/img/cancel.png" alt="Close" class="img-fluid" /></span>
         <div class="modal-container d-flex">
             <div class="search-box-area">
                 <div class="search-box-form">
@@ -362,38 +319,12 @@
 
                     <div class="product-size-part d-flex justify-content-between mt-5">
                         <div class="product-size">
-                            <h4 style="margin-bottom:-15px">SIZE</h4>
-                            <fieldset>
-                                <ul class="">
-                                    <li>
-                                        <input type="radio" name="dress2" id="dress4XS" value="XS">
-                                        <label class="b-1" for="dress4XS">XS</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="dress2" id="dress4S" value="S">
-                                        <label class="b-1" for="dress4S">S</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="dress2" id="dress4M" value="M">
-                                        <label class="b-1" for="dress4M">M</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="dress2" id="dress4L" value="L">
-                                        <label class="b-1" for="dress4L">L</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="dress2" id="dress4XL" value="XL">
-                                        <label class="b-1" for="dress4XL">XL</label>
-                                    </li>
-                                </ul>
-                            </fieldset>
+                            
+                            
                         </div>
 
                         <div class="size-guide">
-                            <button type="button" class="size-modal" data-toggle="modal" data-target="#size_chart">
-                                SIZE GUIDE
-                            </button>
-
+                            
                             <!-- Modal -->
                             <div class="modal fade" id="size_chart" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">

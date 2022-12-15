@@ -9,43 +9,44 @@
     <title>Maknoon Lifestyle</title>
 
     <!---===========favicon=====-->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/logo/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/logo/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/logo/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/img/logo/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/logo/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/logo/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/logo/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ asset('assets/img/logo/favicon/site.webmanifest')}}">
 
     <!--======== Bootstrap 4.6===-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
     <!--======== font awesome===-->
-    <link rel="stylesheet" href="assets/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css')}}">
     <!---======= owl carousel======-->
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.min.css')}}">
 
     <!---======= Header css-->
-    <link rel="stylesheet" href="assets/css/header-css/reset.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/header-css/reset.min.css')}}">
     <!---==========zoom css=========-->
-    <link rel="stylesheet" href="assets/css/swiper.min.css">
-    <link rel="stylesheet" href="assets/css/easyzoom.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/swiper.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/easyzoom.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css')}}">
 
 
 </head>
 
 
 <body class="pattern-bg">
-    <!----===============header start===============-->
-    <header class="header" id="header-area">
+      <!----===============header start===============-->
+      <header class="header" id="header-area">
         <div class="container">
             <section class="wrapper">
+            <!----------------dynamic logo---------------->
                 <div class="header-item-left">
-                    <a href="index.html" class="brand">
-                        <img src="assets/img/logo/logo.png" alt="logo not found">
+                    <a href="{{route('welcome')}}" class="brand">
+                        <img src="{{asset('images/'. $logo->image)}}" alt="logo not found">
                     </a>
                 </div>
-                <!-- Navbar Section -->
+            <!------------daynamic navigation bar-------------------->
                 <div class="header-item-center">
                     <div class="overlay"></div>
                     <nav class="menu" id="menu">
@@ -56,76 +57,33 @@
                             <button type="button" class="menu-mobile-close"><i class="ion ion-ios-close"></i></button>
                         </div>
                         <ul class="menu-section mb-0">
-                            <li class="menu-item blinking"><a href="new_arrival.html">New Arrivals</a></li>
-                            <li class="menu-item-has-children">
+                        <li class="menu-item-has-children">
                                 <a href="#">Products <i class="fas fa-chevron-down"></i> </a>
                                 <div class="menu-subs menu-mega menu-column-4">
+                                @foreach($catagories as $catagory)
                                     <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="assets/img/product/panjabi/p1.jpg" loading="lazy"
+                                        <a href="{{'/catagory/' . $catagory->id}}">
+                                            <img src="{{asset('images/'.$catagory->image)}}" loading="lazy"
                                                 alt="Product Images">
-                                            <h4 class="title">Panjabi</h4>
-                                        </a>
+                                            <h4 class="title">{{$catagory->catagoryName}}</h4>
+                                        </a> 
                                     </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="assets/img/product/jubba/jubba.jpg" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Product Two</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="assets/img/product/tupi/tupi.jpg" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Tupi</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="assets/img/product/fragrance/attar.jpg" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Fragrance</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="assets/img/product/panjabi/p1.jpg" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Panjabi</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="assets/img/product/jubba/jubba.jpg" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Product Two</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="assets/img/product/tupi/tupi.jpg" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Tupi</h4>
-                                        </a>
-                                    </div>
-                                    <div class="list-item text-center">
-                                        <a href="#">
-                                            <img src="assets/img/product/fragrance/attar.jpg" loading="lazy"
-                                                alt="Product Images">
-                                            <h4 class="title">Fragrance</h4>
-                                        </a>
-                                    </div>
+                                @endforeach
                                 </div>
                             </li>
-                            <li class="menu-item"><a href="blog.html">Blog</a></li>
-                            <li class="menu-item"><a href="contact.html">Contact Us</a></li>
-                            <li class="menu-item"><a href="sale.html">Sale</a></li>
+
+                            @foreach($navigation as $navItem)
+               
+                            <li class="menu-item"><a href="{{$navItem->url}}">{{$navItem->title}}</a></li>
+               
+                            @endforeach
+
+                           
                         </ul>
                     </nav>
                 </div>
 
-
+            <!-------------search, mini cart,sidenav---------------->
                 <div class="header-right-meta text-right header-item-righ">
                     <ul>
                         <li><a href="#" class="modal-active"><i class="fa fa-search"></i></a></li>
@@ -134,13 +92,12 @@
                                 <dl class="my-account">
                                     <dt>My Account</dt>
                                     <dd><a href="profile.html">Profile</a></dd>
-                                    <dd><a href="login.html">Sign</a></dd>
+                                    <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
                         </li>
-                        <li class="shop-cart">
-                            <i class="fa fa-shopping-bag" style="font-size: 20px;" onclick="openNav()"></i> <span
-                                class="count">3</span>
+                        <li class="shop-cart">                                       <!--onclick="openNav()"-->
+                        <a href="{{route('shoppingCart')}}"><i class="fa fa-shopping-bag" style="font-size: 20px;" ></i> </a>
                             <div id="mySidenav" class="sidenav">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Close</a>
 
@@ -257,7 +214,7 @@
                                         </div>
                                     </div>
                                     <div class="mini-cart-footer">
-                                        <a href="shopping_cart.html" class="btn-add-to-cart mb-2">View Cart</a>
+                                        <a href="{{route('shoppingCart')}}" class="btn-add-to-cart mb-2">View Cart</a>
                                         <a href="checkout.html" class="btn-add-to-cart">Checkout</a>
                                     </div>
                                 </div>
@@ -280,7 +237,7 @@
 
     <!--== Search Box Area Start ==-->
     <div class="body-popup-modal-area">
-        <span class="modal-close"><img src="assets/img/cancel.png" alt="Close" class="img-responsive" /></span>
+        <span class="modal-close"><img src="assets/img/cancel.png" alt="Close" class="img-fluid" /></span>
         <div class="modal-container d-flex">
             <div class="search-box-area">
                 <div class="search-box-form">
@@ -318,7 +275,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach( Session::get('cart') as $product)
+                                @if(Session::get('cart'))
+                                @foreach( Session::get('cart') as $product)
                                 <tr>
                                     <td class="pro-thumbnail"><a href="#"><img class="img-responsive"
                                                 src="{{asset('images/'. $product->thumbnail)}}" alt="Product" /></a></td>
@@ -341,9 +299,17 @@
                                         </div>
                                     </td>
                                     <td class="pro-subtotal tk-part"><span class="tk-sign">{{$product->price * $product->qty}}</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="fas fa-trash"></i></a></td>
+                                    <td class="pro-remove">
+                                    <form action="{{route('removeCartProduct')}}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                    <button type="submit" class="remove">remove</button>
+                                                </form>
+                                    </td>
                                 </tr>
                                 @endforeach
+                                @endif
+                           
                             </tbody>
                         </table>
                     </div>
@@ -528,18 +494,18 @@
     <!--===============Footer end=============-->
 
 
-    <!---=====jquery====-->
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+   <!----Jquery----->
+   <script src="{{ asset('assets/js/jquery-3.6.0.min.js')}}"></script>
     <!--=====popper js=====-->
-    <script src="assets/js/popper.min.js"></script>
+    <script src="{{ asset('assets/js/popper.min.js')}}"></script>
     <!--=====bootstrap=====-->
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
     <!--=====Owl carousel=====-->
-    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="{{ asset('assets/js/owl.carousel.min.js')}}"></script>
     <!--=====header script=====-->
-    <script src="assets/js/script.js"></script>
+    <script src="{{ asset('assets/js/script.js')}}"></script>
     <!--=====header script=====-->
-    <script src="assets/js/main.js"></script>
+    <script src="{{ asset('assets/js/main.js')}}"></script>
     <script type="text/Javascript">
 
         $(".button-qty").click(function(e){

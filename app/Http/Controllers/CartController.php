@@ -6,6 +6,9 @@ use App\Models\Catagory;
 use App\Models\Product;
 use App\Models\Productimage;
 use App\Cart;
+
+use App\Models\Logo;
+use App\Models\Navbar;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -14,6 +17,10 @@ class CartController extends Controller
     
     
     public function viewCart(Request $request){
+        $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
+
         $subTotal = 0;
         $shipping = 150;
         $grandTotal = 0;
@@ -23,10 +30,10 @@ class CartController extends Controller
                 $subTotal = $subTotal + ($item->price * $item->qty);
             }
             $grandTotal = $subTotal + $shipping;
-            return view('shopping_cart', compact('subTotal','shipping','grandTotal'));
+            return view('shopping_cart', compact('subTotal','shipping','grandTotal','catagories','logo','navigation'));
         }
         else{
-            return view('shopping_cart', compact('subTotal','shipping','grandTotal'));
+            return view('shopping_cart', compact('subTotal','shipping','grandTotal','catagories','logo','navigation'));
         }
         
        
@@ -87,5 +94,36 @@ class CartController extends Controller
         
         
 
+    }
+    public function removeCartProduct(Request $request){
+        $product_id = $request->input('product_id');
+        $cart = $request->session()->get('cart');
+        
+        foreach($cart as $key=>$item){
+            
+            if($cart[$key]->id == $product_id){
+                unset($cart[$key]);
+                $newcart = array_values($cart);
+                $request->session()->put('cart', $newcart);
+            }
+        }
+
+        //view cart
+        $subTotal = 0;
+        $shipping = 150;
+        $grandTotal = 0;
+        if($request->session()->has('cart')){
+            $cart = $request->session()->get('cart');
+            foreach($cart as $item){
+                $subTotal = $subTotal + ($item->price * $item->qty);
+            }
+            $grandTotal = $subTotal + $shipping;
+            return view('shopping_cart', compact('subTotal','shipping','grandTotal'));
+        }
+        else{
+            return view('shopping_cart', compact('subTotal','shipping','grandTotal'));
+        }
+            
+        
     }
 }

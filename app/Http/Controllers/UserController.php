@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use App\Models\Orderdetail;
 use App\Models\User;
+use App\Models\Catagory;
+use App\Models\Product;
+use App\Models\Logo;
+use App\Models\Navbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +20,9 @@ use Illuminate\Auth\Events\PasswordReset;
 class UserController extends Controller
 {
     public function orders(){
+        $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
         $user_id = Auth::guard('web')->user()->id;
         $order_ids = Orderdetail::where('user_id',$user_id)->get();
         $orders = [];
@@ -30,10 +37,13 @@ class UserController extends Controller
         }
         $unique_orders = array_unique($orders);
         
-        return view ( 'userOrders',compact('unique_orders'));
+        return view ( 'userOrders',compact('unique_orders','catagories','logo','navigation'));
 
     }
     public function address(){
+        $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
         $user_id = Auth::guard('web')->user()->id;
         $order_ids = Orderdetail::where('user_id',$user_id)->get();
         if(count($order_ids) > 0){
@@ -41,12 +51,15 @@ class UserController extends Controller
             $order_invoice = $invoice[0];
         }
         
-        return view('userAddress',compact('order_invoice'));
+        return view('userAddress',compact('order_invoice','catagories','logo','navigation'));
         
     }
     public function details()
     {
-        return view('userDetails');
+        $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
+        return view('userDetails',compact('catagories','logo','navigation'));
     }
 
     public function changeDetails(Request $request)
@@ -90,5 +103,11 @@ class UserController extends Controller
                             ->withErrors(['email' => __($status)]);*/
 
         
+    }
+    public function viewDashboard(){
+        $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
+        return view('dashboard',compact('catagories','logo','navigation'));
     }
 }
