@@ -45,6 +45,8 @@ Route::post('/dashboard', [UserController::class, 'changeDetails'] )->middleware
 Route::post('/remove/cart/product', [CartController::class, 'removeCartProduct'])->name('removeCartProduct');
 Route::get('/allProducts',[ProductController::class,'showAllProducts'])->name('allProducts');
 Route::get('/dashboard', [UserController::class, 'viewDashboard'] )->middleware(['auth'])->name('dashboard');
+Route::get('/view/order/{id}', [UserController::class,'viewOrder'])->middleware(['auth']);
+Route::post('/address', [UserController::class,'editAddress'])->middleware(['auth'])->name('editAddress');
 
 
 
@@ -78,7 +80,7 @@ Route::prefix('admin')->group(function(){
     Route::post('/stock',[StockController::class,'store'])->middleware(['auth:admin', 'verified'])->name('updateStock');
     Route::get('/order',[InvoiceController::class,'index'])->middleware(['auth:admin', 'verified'])->name('order');
     Route::get('/orderDetail/{id}',[OrderdetailController::class,'index'])->middleware(['auth:admin', 'verified']);
-    Route::get('/view/invoice/{id}', [InvoiceController::class,'viewInvoice']);
+    Route::get('/view/invoice/{id}', [InvoiceController::class,'viewInvoice'])->middleware(['auth:admin', 'verified']);
     Route::get('/invoice/{id}/generate',[InvoiceController::class,'generateInvoice']);
     /*Route::get('/update-order-status',[OrderdetailController::class,'index'])->middleware(['auth:admin', 'verified'])->name('orderStatus');*/
     Route::post('/orderStatus',[OrderdetailController::class,'store'])->middleware(['auth:admin', 'verified'])->name('orderStatus');

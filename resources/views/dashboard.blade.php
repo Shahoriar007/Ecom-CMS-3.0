@@ -8,27 +8,27 @@
     <title>Maknoon Lifestyle</title>
 
     <!---===========favicon=====-->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/logo/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/logo/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/logo/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/img/logo/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('assets/img/logo/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('assets/img/logo/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/img/logo/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{asset('assets/img/logo/favicon/site.webmanifest')}}">
 
     <!--======== Bootstrap 4.6===-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <!--======== font awesome===-->
-    <link rel="stylesheet" href="assets/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/fontawesome.min.css')}}">
     <!---======= owl carousel======-->
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/owl.theme.default.min.css')}}">
 
     <!---======= Header css-->
-    <link rel="stylesheet" href="assets/css/header-css/reset.min.css">
+    <link rel="stylesheet" href="{{asset('assets/css/header-css/reset.min.css')}}">
     <!---==========zoom css=========-->
-    <link rel="stylesheet" href="assets/css/swiper.min.css">
-    <link rel="stylesheet" href="assets/css/easyzoom.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="{{asset('assets/css/swiper.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/easyzoom.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
 
 
 </head>
@@ -90,7 +90,7 @@
                             <div class="site-settings d-block d-sm-flex">
                                 <dl class="my-account">
                                     <dt>My Account</dt>
-                                    <dd><a href="profile.html">Profile</a></dd>
+                                    <dd><a href="{{route('dashboard')}}">Profile</a></dd>
                                     <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
@@ -291,8 +291,7 @@
                                         <h3>Dashboard</h3>
 
                                         <div class="welcome">
-                                            <p>Hello, <strong>{{ Auth::guard('web')->user()->name }}<a
-                                                    href="login.html" class="logout"> Logout</a>)</p>
+                                            <p>Hello, <strong>{{ Auth::guard('web')->user()->name }}
                                         </div>
 
                                         <p class="mb-0">From your account dashboard. you can easily check & view your
@@ -436,21 +435,21 @@
 
 
     <!---=====jquery====-->
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
     <!--=====popper js=====-->
-    <script src="assets/js/popper.min.js"></script>
+    <script src="{{asset('assets/js/popper.min.js')}}"></script>
     <!--=====bootstrap=====-->
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
     <!--=====Owl carousel=====-->
-    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
     <!--=====header script=====-->
-    <script src="assets/js/script.js"></script>
+    <script src="{{asset('assets/js/script.js')}}"></script>
     <!--=====header script=====-->
     <!--===========zoom ============-->
-    <script src="assets/js/swiper.min.js"></script>
-    <script src="assets/js/easyzoom.js"></script>
+    <script src="{{asset('assets/js/swiper.min.js')}}"></script>
+    <script src="{{asset('assets/js/easyzoom.js')}}"></script>
 
-    <script src="assets/js/main.js"></script>
+    <script src="{{asset('assets/js/main.js')}}"></script>
 
     <script type="text/Javascript">
         $(".button-qty").on("click", function() {

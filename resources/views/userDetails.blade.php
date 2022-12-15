@@ -91,7 +91,7 @@
                             <div class="site-settings d-block d-sm-flex">
                                 <dl class="my-account">
                                     <dt>My Account</dt>
-                                    <dd><a href="profile.html">Profile</a></dd>
+                                    <dd><a href="{{route('dashboard')}}">Profile</a></dd>
                                     <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
@@ -312,10 +312,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="single-input-item">
-                                                    <label for="display-name" ></label>
-                                                    <input type="text" id="display-name" name="display-name" required placeholder="Display Name" />
-                                                </div>
+                                                
 
                                                 <div class="single-input-item">
                                                     <label for="email" ></label>
@@ -353,7 +350,7 @@
                                                 </fieldset>
 
                                                 <div class="single-input-item">
-                                                    <input class="btn-login btn-add-to-cart btn-user-details" type="submit" value="Save Changes">
+                                                    <input class="btn-login btn-add-to-cart btn-user-details " type="submit" value="Save Changes">
                                                 </div>
                                             </form>
                                         </div>

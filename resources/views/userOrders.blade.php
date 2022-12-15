@@ -90,7 +90,7 @@
                             <div class="site-settings d-block d-sm-flex">
                                 <dl class="my-account">
                                     <dt>My Account</dt>
-                                    <dd><a href="profile.html">Profile</a></dd>
+                                    <dd><a href="{{route('dashboard')}}">Profile</a></dd>
                                     <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
@@ -298,21 +298,21 @@
                                                     <th>Order</th>
                                                     <th>Date</th>
                                                     <th>Status</th>
-                                                    <th>Total</th>
-                                                    <th>Action</th>
+                                                 
+                                                    <th>Order detail</th>
                                                 </tr>
                                                 </thead>
 
                                                 <tbody>
-                                                @if($unique_orders)
+                                                @if($orders)
                                                     <?php $index = 0; ?>
-                                                    @foreach($unique_orders as $item)
+                                                    @foreach($orders as $order)
                                                     <?php $index++; ?>
                                                     <td>{{$index}}</td>
-                                                    <td>{{$item[0]->created_at}}</td>
-                                                    <td>{{$item[0]->status}}</td>
-                                                    <td>$3000</td>
-                                                    <td><a href="shopping_cart.html" class="btn-add-to-cart">View</a></td>-->
+                                                    <td>{{$order->created_at}}</td>
+                                                    <td>{{$order->status}}</td>
+                                                   
+                                                    <td><a href="{{url('/view/order/'.$order->id)}}" class="btn-add-to-cart">view</a></td>
 </tr>
                                                     @endforeach
                                                 @endif

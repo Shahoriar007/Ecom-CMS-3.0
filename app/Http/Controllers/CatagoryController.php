@@ -63,10 +63,11 @@ class CatagoryController extends Controller
     {
         $catagory = Catagory::find($id);
         $catagoryProducts = Product::where('catagory', $catagory->catagoryName)->get();
+        $catagoryName =  $catagory->catagoryName;
         $catagories = Catagory::all();
         $logo = Logo::get()->last();
         $navigation = Navbar::all();
-        return view('catagoryProduct', compact('catagoryProducts','catagories','logo','navigation'));
+        return view('catagoryProduct', compact('catagoryProducts','catagoryName','catagories','logo','navigation'));
     }
 
     /**

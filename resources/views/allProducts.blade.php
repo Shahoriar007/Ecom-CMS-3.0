@@ -88,7 +88,7 @@
                             <div class="site-settings d-block d-sm-flex">
                                 <dl class="my-account">
                                     <dt>My Account</dt>
-                                    <dd><a href="profile.html">Profile</a></dd>
+                                    <dd><a href="{{route('dashboard')}}">Profile</a></dd>
                                     <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
@@ -314,7 +314,7 @@
 
             <div class="heading">
                 <h2>
-                    Fragrance
+                   All Products
                 </h2>
             </div>
 
@@ -342,7 +342,7 @@
                                         </div>
                                         <div class="price-div">
                                             <span class="price">BDT {{$item->price}}</span>
-                                            <span class="discount-price line-through">BDT 1500</span>
+                                            
                                         </div>
 
                                         <form>
@@ -358,19 +358,19 @@
                                         <!---<button type="button" class="btn-add-to-cart"> <a href="{{'/add-to-cart/'.$item['id']}}"> </a></button>--->
                                     </div>
 
-                                    <div class="product-meta">
-                                        <!--<button type="button" data-toggle="modal" data-target="#quickView">
+                                    <!--<div class="product-meta">
+                                        <button type="button" data-toggle="modal" data-target="#quickView">
                                                     <span data-toggle="tooltip" data-placement="left"
                                                         title="Quick View"><i class="fas fa-eye"></i>
                                                 </button>
                                                 
                                                 <a href="#" data-toggle="tooltip" data-placement="left"
-                                                    title="Compare"><i class="fas fa-tag"></i></a>-->
+                                                    title="Compare"><i class="fas fa-tag"></i></a>
 
                                         <a href="#" data-toggle="tooltip" data-placement="left"
                                             title="Add to Wishlist"><i class="fas fa-heart"></i></a>
                                     </div>
-                                    <span class="product-bedge">New</span>
+                                    <span class="product-bedge">New</span>-->
                                 </div>
                                 <!-- Single Product Item -->
                             </div>

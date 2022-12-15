@@ -91,7 +91,7 @@
                             <div class="site-settings d-block d-sm-flex">
                                 <dl class="my-account">
                                     <dt>My Account</dt>
-                                    <dd><a href="profile.html">Profile</a></dd>
+                                    <dd><a href="{{route('dashboard')}}">Profile</a></dd>
                                     <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
@@ -264,18 +264,16 @@
                             <!-- SwiperJs and EasyZoom plugins start -->
                             <div class="swiper-container gallery-top">
                                 <div class="swiper-wrapper">
-                                    <?php $iteration = 1 ?>
+                                  
                                     @foreach($images as $image)
-                                    @if($iteration == 1)
+                                 
                                     <div class="swiper-slide easyzoom easyzoom--overlay">
                                         <a href="{{asset('images/' . $image->image)}}">
                                             <img src="{{asset('images/' . $image->image)}}" alt="img not found" />
                                         </a>
                                     </div>
-                                    @else
-                                        @break
-                                    @endif
-                                    <?php $iteration++ ?>
+                                    
+                                
                                     @endforeach
                                     
                                     
@@ -312,8 +310,8 @@
                             <span class="code-no">{{$productDetail->id}}</span>
                         </div>
                         <div class="price-div">
-                            <span class="price">BDT {{$productDetail->productPrice}}</span>
-                            <span class="discount-price line-through">BDT 1500</span>
+                            <span class="price">{{"BDT ". $productDetail->price}}</span>
+                            
                         </div>
                     </div>
 
@@ -350,7 +348,7 @@
                     <div class="add-to-cart-lg">
                     <form>
                                         <input type="hidden" class="pro-id" value="{{$productDetail->id}}"/>
-                                        <button type="button" class="btn-add-to-cart btn-submit" >
+                                        <button type="button" class="btn-add-to-cart btn-submit btn btn-primary" >
                                             
                                         ADD TO CART
                                           

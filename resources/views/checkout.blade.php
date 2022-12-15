@@ -32,6 +32,18 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
 
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+<title>Checkout example for Bootstrap</title>
+
+<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+
+<!-- Bootstrap core CSS -->
+<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="form-validation.css" rel="stylesheet">
+
 
 </head>
 <body class="pattern-bg">
@@ -92,7 +104,7 @@
                             <div class="site-settings d-block d-sm-flex">
                                 <dl class="my-account">
                                     <dt>My Account</dt>
-                                    <dd><a href="profile.html">Profile</a></dd>
+                                    <dd><a href="{{route('dashboard')}}">Profile</a></dd>
                                     <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
@@ -286,19 +298,19 @@
         </div>
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Billing address</h4>
-          <form class="needs-validation" action="" enctype="multipart/form-data">
+          <form class="needs-validation" action="" enctype="multipart/form-data" >
             @csrf
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">First name</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="" value="" >
+                <input type="text" class="form-control" name="name" id="name" placeholder="" value="" />
                 <div class="invalid-feedback">
                   Valid first name is required.
                 </div>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="lastName">Last name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="" value="" >
+                <input type="text" class="form-control" id="lastName" placeholder="" value="" />
                 <div class="invalid-feedback">
                   Valid last name is required.
                 </div>
@@ -306,21 +318,8 @@
             </div>
 
             <div class="mb-3">
-              <label for="username">Username</label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">@</span>
-                </div>
-                <input type="text" class="form-control" id="username" placeholder="Username" >
-                <div class="invalid-feedback" style="width: 100%;">
-                  Your username is required.
-                </div>
-              </div>
-            </div>
-
-            <div class="mb-3">
               <label for="email">Email <span class="text-muted">(Optional)</span></label>
-              <input type="email" class="form-control" name="email" id="email" placeholder="you@example.com">
+              <input type="email" class="form-control" name="email" id="email" placeholder="you@example.com"  />
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
@@ -328,31 +327,17 @@
 
             <div class="mb-3">
               <label for="address">Address</label>
-              <input type="text" class="form-control" name="address" id="address" placeholder="1234 Main St" >
+              <input type="text" class="form-control" name="address" id="address" placeholder="1234 Main St"  />
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-            </div>
 
             <div class="row">
-              <div class="col-md-5 mb-3">
-                <label for="country">Country</label>
-                <select class="custom-select d-block w-100" id="country" >
-                  <option value="">Choose...</option>
-                  <option>United States</option>
-                </select>
-                <div class="invalid-feedback">
-                  Please select a valid country.
-                </div>
-              </div>
               <div class="col-md-4 mb-3">
                 <label for="state">State</label>
-                <select class="custom-select d-block w-100" name="city" id="city">
+                <select class="custom-select d-block w-100" name="city" id="city" >
                   <option value="">Choose...</option>
                   <option>California</option>
                 </select>
@@ -362,14 +347,19 @@
               </div>
               <div class="col-md-3 mb-3">
                 <label for="zip">Zip</label>
-                <input type="text" class="form-control" name="zip" id="zip" placeholder="" >
+                <input type="text" class="form-control" name="zip" id="zip" placeholder="" />
                 <div class="invalid-feedback">
                   Zip code required.
                 </div>
               </div>
             </div>
+
+            
+  
+   <button class="btn btn-primary btn-lg btn-block checkout-btn" type="submit"> Continue to checkout </button>
+  
            
-            <button class="btn btn-primary btn-lg btn-block checkout-btn" type="submit">Continue to checkout</button>
+           
           </form>
         </div>
       </div>
@@ -391,6 +381,7 @@
     <script type="text/Javascript">
        $(".checkout-btn").click(function(e){
         e.preventDefault();
+
         var $button = $(this);
         var name = $button.siblings().find("input#name").val();
         var email = $button.siblings().find("input#email").val();
@@ -438,9 +429,7 @@
 
         }
     </script>
-    <script>
-      
-    </script>
+   
 
 </body>
 </html>

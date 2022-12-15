@@ -50,6 +50,7 @@ class CheckoutController extends Controller
         $invoice['city'] = $city;
         $invoice['zip'] = $zip;
         $invoice['status'] = "pending";
+        $invoice['user_id'] = Auth::guard('web')->user()->id;
         $invoice->save();
         
         //stroring order info in order products table
@@ -62,6 +63,7 @@ class CheckoutController extends Controller
             $orderDetail['quantity'] = $item->qty;
             $orderDetail['singlePrice'] = $item->price;
             $orderDetail['status'] = "pending";
+            
 
             //dd($orderDetail['orderinvoice_id'],$orderDetail['product_id'],$orderDetail['user_id'],$orderDetail['quantity'],$orderDetail['singlePrice'],$orderDetail['status']);
             $orderDetail->save();

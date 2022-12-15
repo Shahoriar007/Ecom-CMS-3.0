@@ -64,6 +64,30 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="form-label-group">
+                                            <label class="form-label" for="default-01">Address</label>
+                                        </div>
+                                        <div class="form-control-wrap">
+                                            <input type="text" class="form-control form-control-lg" id="address" name="address" placeholder="Enter your address" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            <label class="form-label" for="default-01">City</label>
+                                        </div>
+                                        <div class="form-control-wrap">
+                                            <input type="text" class="form-control form-control-lg" id="city" name="city" placeholder="Enter your city" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            <label class="form-label" for="default-01">Phone</label>
+                                        </div>
+                                        <div class="form-control-wrap">
+                                            <input type="text" class="form-control form-control-lg" id="phone" name="phone" placeholder="Enter your city" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-label-group">
                                             <label class="form-label" for="password">Password</label> 
                                         </div>
                                         <div class="form-control-wrap">

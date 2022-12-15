@@ -91,7 +91,7 @@
                             <div class="site-settings d-block d-sm-flex">
                                 <dl class="my-account">
                                     <dt>My Account</dt>
-                                    <dd><a href="profile.html">Profile</a></dd>
+                                    <dd><a href="{{route('dashboard')}}">Profile</a></dd>
                                     <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
@@ -267,7 +267,7 @@
                                 <tr>
                                     <th class="pro-thumbnail">Thumbnail</th>
                                     <th class="pro-title">Product</th>
-                                    <th class="pro-size">Size</th>
+                                    
                                     <th class="pro-price">Price</th>
                                     <th class="pro-quantity">Quantity</th>
                                     <th class="pro-subtotal">Total</th>
@@ -281,7 +281,7 @@
                                     <td class="pro-thumbnail"><a href="#"><img class="img-responsive"
                                                 src="{{asset('images/'. $product->thumbnail)}}" alt="Product" /></a></td>
                                     <td class="pro-title"><a href="#">{{$product->name}}</a></td>
-                                    <td class="pro-size">XS</td>
+                                    
                                     <td class="pro-price tk-part"><span class="tk-sign">{{$product->price}}</span></td>
                                     <td class="pro-quantity">
                                         <div class="product-count">
@@ -333,19 +333,7 @@
                                             <span class="tk-sign">{{$subTotal}}</span>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Shipping</td>
-                                        <td class="tk-part shipping">
-                                            <span class="tk-sign">{{$shipping}}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td class="tk-part grand-total">
-                                            <span class="tk-sign font-weight-bold">{{$grandTotal}}</span>
-                                        </td>
-
-                                    </tr>
+                                   
                                 </table>
                             </div>
                         </div>

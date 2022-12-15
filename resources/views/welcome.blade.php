@@ -87,7 +87,7 @@
                             <div class="site-settings d-block d-sm-flex">
                                 <dl class="my-account">
                                     <dt>My Account</dt>
-                                    <dd><a href="profile.html">Profile</a></dd>
+                                    <dd><a href="{{route('dashboard')}}">Profile</a></dd>
                                     <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
@@ -337,37 +337,16 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="owl-carousel owl-theme product-carousel">
-                        <div class="item text-center">
-                            <a href="#">
-                                <img src="assets/img/product/jubba/1x1/j1.png" alt="slider img not found">
-                                <span>Panjabi</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="assets/img/product/tupi/1x1/t1.png" alt="slider img not found">
-                                <span>Tupi</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="assets/img/product/jubba/1x1/j1.png" alt="slider img not found">
-                                <span>Jubba</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="assets/img/product/fragrance/1x1/a1.png" alt="slider img not found">
-                                <span>Fragrance</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="assets/img/product/tupi/1x1/t1.png" alt="slider img not found">
-                                <span>Tupi</span>
-                            </a>
-                        </div>
 
+                    @foreach($catagories as $catagory)
+                    <div class="item text-center">
+                            <a href="{{'/catagory/' . $catagory->id}}">
+                                <img src="{{asset('images/'.$catagory->image)}}" alt="slider img not found">
+                                <span>{{$catagory->catagoryName}}</span>
+                            </a>
+                        </div>
+                                    
+                                @endforeach
                     </div>
                 </div>
             </div>
@@ -409,7 +388,7 @@
                                         </div>
                                         <div class="price-div">
                                             <span class="price">{{"BDT ". $item->price}}</span>
-                                            <span class="discount-price line-through">BDT 1500</span>
+                                            
                                         </div>
 
                                         <form>
@@ -423,19 +402,7 @@
                                        
                                     </div>
 
-                                    <div class="product-meta">
-                                        <!--<button type="button" data-toggle="modal" data-target="#quickView">
-                                                    <span data-toggle="tooltip" data-placement="left"
-                                                        title="Quick View"><i class="fas fa-eye"></i>
-                                                </button>
-                                                
-                                                <a href="#" data-toggle="tooltip" data-placement="left"
-                                                    title="Compare"><i class="fas fa-tag"></i></a>-->
-
-                                        <a href="#" data-toggle="tooltip" data-placement="left"
-                                            title="Add to Wishlist"><i class="fas fa-heart"></i></a>
-                                    </div>
-                                    <span class="product-bedge">New</span>
+                                    
                                 </div>
                                 <!-- Single Product Item -->
                             </div>

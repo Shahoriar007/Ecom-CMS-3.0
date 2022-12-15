@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Invoice #6</title>
+    <title>Invoice</title>
 
     <style>
         html,
@@ -169,14 +169,14 @@
             <tr>
                 
                 <td colspan="3" class="total-heading">Total Amount - <small>Inc. all vat/tax</small> :</td>
-                <td colspan="1" class="total-heading">{{$data['total']+150}}</td>
+                <td colspan="1" class="total-heading">{{$data['total']}}</td>
             </tr>
         </tbody>
     </table>
 
     <br>
     <p class="text-center">
-        Thank your for shopping with Funda of Web IT
+        Thank your for shopping with Maknoon Lifestyle
     </p>
 
 </body>

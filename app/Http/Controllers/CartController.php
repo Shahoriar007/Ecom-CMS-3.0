@@ -96,6 +96,9 @@ class CartController extends Controller
 
     }
     public function removeCartProduct(Request $request){
+        $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
         $product_id = $request->input('product_id');
         $cart = $request->session()->get('cart');
         
@@ -118,10 +121,10 @@ class CartController extends Controller
                 $subTotal = $subTotal + ($item->price * $item->qty);
             }
             $grandTotal = $subTotal + $shipping;
-            return view('shopping_cart', compact('subTotal','shipping','grandTotal'));
+            return view('shopping_cart', compact('subTotal','shipping','grandTotal','catagories','logo','navigation'));
         }
         else{
-            return view('shopping_cart', compact('subTotal','shipping','grandTotal'));
+            return view('shopping_cart', compact('subTotal','shipping','grandTotal','catagories','logo','navigation'));
         }
             
         

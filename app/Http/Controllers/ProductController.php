@@ -8,6 +8,7 @@ use App\Models\Catagory;
 use App\Models\Product;
 use App\Models\Logo;
 use App\Models\Navbar;
+use App\Models\Stock;
 use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session as FacadesSession;
@@ -24,8 +25,9 @@ class ProductController extends Controller
     public function index()
     {
         $catagories = Catagory::all();
+        $allProducts = Stock::all();
         
-        return view('product',compact('catagories'));
+        return view('product',compact('catagories','allProducts'));
     }
 
     /**

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Stock;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
@@ -98,5 +100,13 @@ class StockController extends Controller
     public function destroy(Stock $stock)
     {
         //
+    }
+    public function editAddress(Request $request){
+        $user_id = Auth::guard('web')->user()->id;
+        $user =  User::find($user_id);
+        $user->address = $request->input('address');
+        $user->city = $request->input('city');
+        $user->phone = $request->input('phone');
+        $user->save();
     }
 }

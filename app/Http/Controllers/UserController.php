@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\PasswordReset;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -24,20 +26,10 @@ class UserController extends Controller
         $logo = Logo::get()->last();
         $navigation = Navbar::all();
         $user_id = Auth::guard('web')->user()->id;
-        $order_ids = Orderdetail::where('user_id',$user_id)->get();
-        $orders = [];
-        if(count($order_ids) > 0){
-            
-            foreach($order_ids as $id){
-                $order = Invoice::find($id);
-                
-                array_push($orders,$order);
-            }
-            
-        }
-        $unique_orders = array_unique($orders);
+        $orders = Invoice::where('user_id',$user_id)->get();
+        //dd($orders);
         
-        return view ( 'userOrders',compact('unique_orders','catagories','logo','navigation'));
+        return view ( 'userOrders',compact('orders','catagories','logo','navigation'));
 
     }
     public function address(){
@@ -45,13 +37,11 @@ class UserController extends Controller
         $logo = Logo::get()->last();
         $navigation = Navbar::all();
         $user_id = Auth::guard('web')->user()->id;
-        $order_ids = Orderdetail::where('user_id',$user_id)->get();
-        if(count($order_ids) > 0){
-            $invoice = Invoice::find($order_ids[0]);
-            $order_invoice = $invoice[0];
-        }
+        $user = User::where('id',$user_id)->get();
+        //dd($user[0]->address);
         
-        return view('userAddress',compact('order_invoice','catagories','logo','navigation'));
+        
+        return view('userAddress',compact('user','catagories','logo','navigation'));
         
     }
     public function details()
@@ -67,7 +57,6 @@ class UserController extends Controller
         $input = $request->all();
         $first_name = $input['first-name'];
         $last_name = $input['last-name'];
-        $display_name = $input['display-name'];
         $email = $input['email'];
         $current_pwd = $input['current-pwd'];
         $new_pwd = $input['new-pwd'];
@@ -96,7 +85,10 @@ class UserController extends Controller
                 event(new PasswordReset($user));
             }
         );*/
-        return view('dashboard');
+        $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
+        return view('dashboard',compact('catagories','logo','navigation'));
         /*return $status == Password::PASSWORD_RESET
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withInput($request->only('email'))
@@ -110,4 +102,48 @@ class UserController extends Controller
         $navigation = Navbar::all();
         return view('dashboard',compact('catagories','logo','navigation'));
     }
+
+    public function viewOrder($id){
+
+        $invoice = DB::table('invoices')->find($id);
+        $orderDetail = DB::table('orderdetails')->where('orderinvoice_id', '=', $id)->get();
+        $user_ids = DB::table('orderdetails')->select('user_id')->where('orderinvoice_id', '=', $id)->get();
+        $user = DB::table('users')->select('name')->where('id', '=', $user_ids[0]->user_id)->get();
+        $products = [];
+        $total = 0;
+        foreach($orderDetail as $item){
+           $product = DB::table('products')->find($item->product_id);
+           array_push($products,$product);
+           $total = $total + ($product->price * $item->quantity);
+        }
+        $data = array(
+           "user"=>$user[0],
+           "invoice"=>$invoice,
+           "products"=>$products,
+           "orderDetail"=>$orderDetail,
+           "total"=>$total
+       );
+       return view('generate_invoice',compact('data'));
+       
+   }
+   public function editAddress(Request $request){
+    $address = $request->input('address');
+    $city = $request->input('city');
+    $phone = $request->input('phone');
+    $user_id = Auth::guard('web')->user()->id;
+    $user = User::find($user_id);
+    $user->address = $address;
+    $user->city = $city;
+    $user->phone = $phone;
+    $user->save();
+
+    $catagories = Catagory::all();
+        $logo = Logo::get()->last();
+        $navigation = Navbar::all();
+
+        $user_id = Auth::guard('web')->user()->id;
+        $user = User::where('id',$user_id)->get();
+        return view('userAddress',compact('user','catagories','logo','navigation'));
+
+   }
 }

@@ -90,7 +90,7 @@
                             <div class="site-settings d-block d-sm-flex">
                                 <dl class="my-account">
                                     <dt>My Account</dt>
-                                    <dd><a href="profile.html">Profile</a></dd>
+                                    <dd><a href="{{route('dashboard')}}">Profile</a></dd>
                                     <dd><a href="{{'/login'}}">Sign</a></dd>
                                 </dl>
                             </div>
@@ -290,18 +290,35 @@
                                <div >
                                     <div class="myaccount-content">
                                         <h3>Billing Address</h3>
+                                        <form method="POST" action="{{route('editAddress')}}" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="row">
 
-                                        @if($order_invoice)
-                                        <address>
-                                            <p><strong>{{$order_invoice->name}}</strong></p>
-                                            <p>{{$order_invoice->address}} <br>
-                                            {{$order_invoice->city}}</p>
-                                            <p>Mobile: {{$order_invoice->phone}}</p>
-                                        </address>
+                                                <fieldset>
+                                                @if($user[0]->address && $user[0]->city )
+                                                
+                                                    <div class="single-input-item ">
+                                                        <input type="address" id="address" name="address"
+                                                               value="{{$user[0]->address}}" required />
+                                                    </div>
+                                                    <div class="single-input-item">
+                                                        <input type="text" id="city" name="city"
+                                                               value={{$user[0]->city}} required />
+                                                    </div>
+                                                @endif
+                                                @if($user[0]->phone)
+                                                <div class="single-input-item">
+                                                        <input type="text" id="phone" name="phone"
+                                                               value={{$user[0]->phone}} required />
+                                                    </div>
 
-                                        <a href="#" class="btn-add-to-cart d-inline-block"><i class="fa fa-edit"></i>
-                                            Edit Address</a>
-                                        @endif
+                                                @endif
+                                                <div class="single-input-item">
+                                                    <input class="btn-login btn-add-to-cart edit-btn " type="submit" value="Edit Address">
+                                                </div>
+                                            </fieldset>
+                                            </form>
+                                       
                                     </div>
                                 </div>
                                 <!-- Single Tab Content End -->
@@ -456,6 +473,7 @@
     <script src="assets/js/easyzoom.js"></script>
 
     <script src="assets/js/main.js"></script>
+   
 
     <script type="text/Javascript">
         $(".button-qty").on("click", function() {
