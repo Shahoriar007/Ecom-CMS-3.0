@@ -36,50 +36,51 @@
     <header class="header" id="header-area">
         <div class="container">
             <section class="wrapper">
-            <!----------------dynamic logo---------------->
+                <!----------------dynamic logo---------------->
                 <div class="header-item-left">
                     <a href="{{route('welcome')}}" class="brand">
-                        <img src="{{asset('images/'. $logo->image)}}" alt="logo not found">
+                        <img src="{{url('photos/'.$logo->image)}}" alt="logo not found">
                     </a>
                 </div>
-            <!------------daynamic navigation bar-------------------->
+                <!------------daynamic navigation bar-------------------->
                 <div class="header-item-center">
                     <div class="overlay"></div>
                     <nav class="menu" id="menu">
                         <div class="menu-mobile-header">
-                            <button type="button" class="menu-mobile-arrow"><i
-                                    class="ion ion-ios-arrow-back"></i></button>
+                            <button type="button" class="menu-mobile-arrow"><i class="ion ion-ios-arrow-back"></i></button>
                             <div class="menu-mobile-title"></div>
                             <button type="button" class="menu-mobile-close"><i class="ion ion-ios-close"></i></button>
                         </div>
                         <ul class="menu-section mb-0">
-                        <li class="menu-item-has-children">
+                            <li class="menu-item-has-children">
                                 <a href="#">Products <i class="fas fa-chevron-down"></i> </a>
                                 <div class="menu-subs menu-mega menu-column-4">
-                                @foreach($catagories as $catagory)
+                                    @foreach($catagories as $catagory)
+                                    @if($catagory->status == "enable")
                                     <div class="list-item text-center">
                                         <a href="{{'/catagory/' . $catagory->id}}">
-                                            <img src="{{asset('images/'.$catagory->image)}}" loading="lazy"
-                                                alt="Product Images">
+                                            <img src="{{url('photos/'.$catagory->image)}}" loading="lazy" alt="Product Images">
                                             <h4 class="title">{{$catagory->catagoryName}}</h4>
-                                        </a> 
+                                        </a>
                                     </div>
-                                @endforeach
+                                    @endif
+                                    @endforeach
                                 </div>
                             </li>
 
                             @foreach($navigation as $navItem)
-               
+                            @if($navItem->status == "enable")
                             <li class="menu-item"><a href="{{$navItem->url}}">{{$navItem->title}}</a></li>
-               
+                            @endif
+
                             @endforeach
 
-                           
+
                         </ul>
                     </nav>
                 </div>
 
-            <!-------------search, mini cart,sidenav---------------->
+                <!-------------search, mini cart,sidenav---------------->
                 <div class="header-right-meta text-right header-item-righ">
                     <ul>
                         <li><a href="#" class="modal-active"><i class="fa fa-search"></i></a></li>
@@ -92,8 +93,9 @@
                                 </dl>
                             </div>
                         </li>
-                        <li class="shop-cart">                                       <!--onclick="openNav()"-->
-                        <a href="{{route('shoppingCart')}}"><i class="fa fa-shopping-bag" style="font-size: 20px;" ></i> </a>
+                        <li class="shop-cart">
+                            <!--onclick="openNav()"-->
+                            <a href="{{route('shoppingCart')}}"><i class="fa fa-shopping-bag" style="font-size: 20px;"></i> </a>
                             <div id="mySidenav" class="sidenav">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Close</a>
 
@@ -102,8 +104,7 @@
                                     <div class="mini-cart-body">
                                         <div class="single-cart-item d-flex">
                                             <figure class="product-thumb">
-                                                <a href="#"><img class="img-fluid"
-                                                        src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
+                                                <a href="#"><img class="img-fluid" src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
                                             </figure>
 
                                             <div class="product-details">
@@ -138,8 +139,7 @@
                                         </div>
                                         <div class="single-cart-item d-flex">
                                             <figure class="product-thumb">
-                                                <a href="#"><img class="img-fluid"
-                                                        src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
+                                                <a href="#"><img class="img-fluid" src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
                                             </figure>
                                             <div class="product-details">
                                                 <h2><a href="#">Sprite Yoga Companion</a></h2>
@@ -171,8 +171,7 @@
                                         </div>
                                         <div class="single-cart-item d-flex">
                                             <figure class="product-thumb">
-                                                <a href="#"><img class="img-fluid"
-                                                        src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
+                                                <a href="#"><img class="img-fluid" src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
                                             </figure>
                                             <div class="product-details">
                                                 <h2><a href="#">Sprite Yoga Companion</a></h2>
@@ -255,13 +254,15 @@
                     <div class="owl-carousel owl-theme slider-carousel">
 
                         @foreach($slider as $item)
+                        @if($item->status == "enable")
                         <div class="item">
                             <a href="#">
-                                <img src="{{asset('images/'. $item->image)}}" alt="slider img not found">
+                                <img src="{{url('photos/'.$item->image)}}" alt="slider img not found">
                             </a>
                         </div>
+                        @endif
                         @endforeach
-                        
+
                     </div>
                 </div>
             </div>
@@ -276,48 +277,56 @@
             <div class="row">
                 <?php $iteration = 0 ?>
                 @foreach($latest as $item)
-                    <?php $iteration = $iteration+1 ?>
-                    @if($iteration == 2)
-                    <div class="col-md-4">
+                @php
+                $stocksOfProduct = App\Models\Stock::where('product_id',$item->id)->get();
+                @endphp
+                @foreach($stocksOfProduct as $stock)
+                @if($stock->status == "enable")
+                <?php $iteration = $iteration + 1 ?>
+                @if($iteration == 2)
+                <div class="col-md-4">
                     <div class="banner banner-border">
-                        <a href="{{'/product/details/' . $item->id}}">
-                            <img src="{{asset('images/' . $item->image1)}}" class="img-responsive" alt="">
+                        <a href="{{'/product/details/' . $item->id. '/' . $stock->sku}}">
+                            <img src="{{url('photos/' . $item->image1)}}" class="img-responsive" alt="">
                         </a>
                         <div class="banner-content">
                             <div class="banner-title">
                                 <h3>Exclusive collection</h3>
                             </div>
-                            <a href="{{'/product/details/' . $item->id}}" class="link1">
+                            <a href="{{'/product/details/' . $item->id. '/' . $stock->sku}}" class="link1">
                                 Discover Now
                                 <i class="fas fa-long-arrow-alt-right"></i>
                             </a>
                         </div>
                     </div>
                     <div class="banner-content-out">
-                            <h3>Exclusive collection</h3>
-                            <p>Grab Your Product</p>
+                        <h3>Exclusive collection</h3>
+                        <p>Grab Your Product</p>
                     </div>
-                    </div>
-                    
-                    @else
-                        <div class="col-md-4">
+                </div>
+
+                @else
+                <div class="col-md-4">
                     <div class="banner banner-border">
-                        <a href="{{'/product/details/' . $item->id}}">
-                            <img src="{{asset('images/' . $item->image1)}}" class="img-responsive" alt="">
+                        <a href="{{'/product/details/' . $item->id. '/' . $stock->sku}}">
+                            <img src="{{url('photos/' . $item->image1)}}" class="img-responsive" alt="">
                         </a>
                         <div class="banner-content">
                             <div class="banner-title">
                                 <h3>Exclusive collection</h3>
                             </div>
-                            <a href="{{'/product/details/' . $item->id}}" class="link1">
+                            <a href="{{'/product/details/' . $item->id. '/' . $stock->sku}}" class="link1">
                                 Discover Now
                                 <i class="fas fa-long-arrow-alt-right"></i>
                             </a>
                         </div>
                     </div>
-                    </div>
-                    
-                    @endif
+                </div>
+
+                @endif
+                @endif
+                @endforeach
+
 
                 @endforeach
             </div>
@@ -338,15 +347,17 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="owl-carousel owl-theme product-carousel">
 
-                    @foreach($catagories as $catagory)
-                    <div class="item text-center">
+                        @foreach($catagories as $catagory)
+                        @if($catagory->status == "enable")
+                        <div class="item text-center">
                             <a href="{{'/catagory/' . $catagory->id}}">
-                                <img src="{{asset('images/'.$catagory->image)}}" alt="slider img not found">
+                                <img src="{{url('photos/'.$catagory->image)}}" alt="slider img not found">
                                 <span>{{$catagory->catagoryName}}</span>
                             </a>
                         </div>
-                                    
-                                @endforeach
+                        @endif
+
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -370,42 +381,52 @@
                 <div class="shop-page-products-wrap">
                     <div class="products-wrapper">
                         <div class="row">
-                        @foreach($top as $item)
+                            @foreach($top as $item)
+                            @php
+                            $stocksOfProduct = App\Models\Stock::where('product_id',$item->id)->get();
+                            @endphp
+                            @foreach($stocksOfProduct as $stock)
+                            @if($stock->status == "enable")
                             <div class="col-lg-3 col-sm-6 col-6 p-x-5">
                                 <!-- Single Product Item -->
                                 <div class="single-product-item text-center mb-3">
                                     <figure class="product-thumb">
-                                        <a href="{{'/product/details/' . $item->id}}"><img src="{{asset('images/'. $item->image1)}}" class="pro-img"
-                                                alt="Products" class="img-fluid"></a>
+
+                                        <a href="{{'/product/details/' . $item->id. '/' . $stock->sku}}"><img src="{{url('photos/'.$item->image1)}}" class="pro-img" alt="Products" class="img-fluid"></a>
                                     </figure>
 
                                     <div class="product-details">
-                                        
-                                        <h2><a href="{{'/product/details/' . $item->id}}" class="pro-name">{{$item->productName}}</a></h2>
+
+                                        <h2><a href="{{'/product/details/' . $item->id. '/' . $stock->sku}}" class="pro-name">{{$item->productName}}</a></h2>
                                         <div class="product-code">
                                             <span class="code-title">Product Code: </span>
-                                            <span class="code-no">S-3254</span>
+                                            <span class="code-no">{{$stock->sku}}</span>
                                         </div>
                                         <div class="price-div">
                                             <span class="price">{{"BDT ". $item->price}}</span>
-                                            
+
                                         </div>
 
                                         <form>
-                                        <input type="hidden" class="pro-id" value="{{$item->id}}"/>
-                                        <button type="button" class="btn-add-to-cart btn-submit" >
-                                            
+                                            <input type="hidden" class="pro-id" value="{{$item->id}}" />
+                                            <input type="hidden" class="pro-sku" value="{{$stock->sku}}" />
+                                            <button type="button" class="btn-add-to-cart btn-submit">
+
                                                 +Add to Cart
-                                          
-                                        </button>
+
+                                            </button>
                                         </form>
-                                       
+                                        
+
                                     </div>
 
-                                    
+
                                 </div>
                                 <!-- Single Product Item -->
                             </div>
+
+                            @endif
+                            @endforeach
                             @endforeach
                         </div>
                     </div>
@@ -458,10 +479,8 @@
                             <label for="newsletter" class="label-text">Enter your Email to Join</label>
                             <input type="text" id="newsletter">
                             <button class="btn arrow-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                    class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
                                 </svg>
                             </button>
                         </div>
@@ -569,15 +588,15 @@
                             @foreach($socialMedia as $item)
                             <li class="list-inline-item">
                                 <a href="{{$item->link}}" class="sbtn btn-large mx-1" title="Facebook">
-                                @if($item->name == "facebook")
-                                <i class= "fab fa-facebook-f" ></i>
-                                @elseif($item->name == "instagram")
-                                <i class="fab fa-instagram"></i>
-                                @elseif($item->name == "pinterest")
-                                <i class="fab fa-pinterest-p"></i>
-                                @endif
+                                    @if($item->name == "facebook")
+                                    <i class="fab fa-facebook-f"></i>
+                                    @elseif($item->name == "instagram")
+                                    <i class="fab fa-instagram"></i>
+                                    @elseif($item->name == "pinterest")
+                                    <i class="fab fa-pinterest-p"></i>
+                                    @endif
                                 </a>
-                            </li> 
+                            </li>
                             @endforeach
                             <!---------------<li class="list-inline-item">
                                 <a href="#!" class="sbtn btn-large mx-1" title="Facebook">
@@ -622,7 +641,7 @@
     <script src="assets/js/script.js"></script>
     <!--=====header script=====-->
     <script src="assets/js/main.js"></script>
-   <!---- <script type="text/Javascript">
+    <!---- <script type="text/Javascript">
         $(".button-qty").on("click", function() {
     
         var $button = $(this);
@@ -662,34 +681,39 @@
 
         }
     </script>
-     
-     <script type="text/javascript">
-    $(".btn-submit").click(function(e){
-        e.preventDefault();
 
-        var $button = $(this);
-        var productId = $button.parent().find("input").val();
-        var quantity = 1;
+    <script type="text/javascript">
+        $(".btn-submit").click(function(e) {
+            e.preventDefault();
 
-        $.ajaxSetup({
-       headers: {
-           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-       }
-   });
+            var $button = $(this);
+            var productId = $button.parent().find("input:even").val();
+            var productSku = $button.parent().find("input:odd").val();
+            console.log(productId,productSku);
+            var quantity = 1;
 
-   $.ajax({
-          type:'POST',
-          url:"{{ route('addToCart') }}",
-          data:{productId:productId, quantity:quantity},
-          success:function(data){
-             console.log(JSON.parse(data.cart));
-          }
-       });
-  
-    });
-   
-  
-</script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('addToCart') }}",
+                data: {
+                    productId: productId,
+                    productSku: productSku,
+                    quantity: quantity
+                },
+                success: function(data) {
+                    console.log(JSON.parse(data.cart));
+                }
+            });
+
+        });
+    </script>
+    
 
     <script>
         /******newsletter */

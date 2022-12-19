@@ -40,7 +40,7 @@
             <!----------------dynamic logo---------------->
                 <div class="header-item-left">
                     <a href="{{route('welcome')}}" class="brand">
-                        <img src="{{asset('images/'. $logo->image)}}" alt="logo not found">
+                        <img src="{{url('photos/'. $logo->image)}}" alt="logo not found">
                     </a>
                 </div>
             <!------------daynamic navigation bar-------------------->
@@ -58,21 +58,23 @@
                                 <a href="#">Products <i class="fas fa-chevron-down"></i> </a>
                                 <div class="menu-subs menu-mega menu-column-4">
                                 @foreach($catagories as $catagory)
+                                @if($catagory->status == "enable")
                                     <div class="list-item text-center">
                                         <a href="{{'/catagory/' . $catagory->id}}">
-                                            <img src="{{asset('images/'.$catagory->image)}}" loading="lazy"
+                                            <img src="{{url('photos/'.$catagory->image)}}" loading="lazy"
                                                 alt="Product Images">
                                             <h4 class="title">{{$catagory->catagoryName}}</h4>
                                         </a> 
                                     </div>
+                                    @endif
                                 @endforeach
                                 </div>
                             </li>
 
                             @foreach($navigation as $navItem)
-               
+                            @if($navItem->status == "enable")
                             <li class="menu-item"><a href="{{$navItem->url}}">{{$navItem->title}}</a></li>
-               
+                            @endif
                             @endforeach
 
                            
@@ -325,19 +327,24 @@
                     <div class="products-wrapper">
                         <div class="row">
                             @foreach($catagoryProducts as $item)
+                            @php
+                            $stocksOfProduct = App\Models\Stock::where('product_id',$item->id)->get();
+                            @endphp
+                            @foreach($stocksOfProduct as $stock)
+                            @if($stock->status == "enable")
                             <div class="col-lg-3 col-sm-6 col-6 p-x-5">
                                 <!-- Single Product Item -->
                                 <div class="single-product-item text-center mb-3">
                                     <figure class="product-thumb">
-                                        <a href="{{'/product/details/' . $item->id}}"><img src="{{asset('images/'. $item['image1'])}}"
+                                        <a href="{{'/product/details/' . $item->id. '/' . $stock->sku}}"><img src="{{url('photos/'. $item['image1'])}}"
                                                 alt="Products" class="img-fluid"></a>
                                     </figure>
 
                                     <div class="product-details">
-                                        <h2><a href="{{'/product/details/' . $item->id}}">{{$item->productName}}</a></h2>
+                                        <h2><a href="{{'/product/details/' . $item->id. '/' . $stock->sku}}">{{$item->productName}}</a></h2>
                                         <div class="product-code">
                                             <span class="code-title">Product Code: </span>
-                                            <span class="code-no">S-3254</span>
+                                            <span class="code-no">{{$stock->sku}}</span>
                                         </div>
                                         <div class="price-div">
                                             <span class="price">{{"BDT ".$item->price}}</span>
@@ -346,6 +353,7 @@
 
                                         <form>
                                         <input type="hidden" class="pro-id" value="{{$item['id']}}"/>
+                                        <input type="hidden" class="pro-sku" value="{{$stock->sku}}" />
                                         <button type="button" class="btn-add-to-cart btn-submit" >
                                             
                                         + Add to
@@ -361,6 +369,8 @@
                                 </div>
                                 <!-- Single Product Item -->
                             </div>
+                            @endif
+                            @endforeach
                             @endforeach
                            
                         </div>
@@ -625,7 +635,8 @@
         e.preventDefault();
 
         var $button = $(this);
-        var productId = $button.parent().find("input").val();
+        var productId = $button.parent().find("input:even").val();
+        var productSku = $button.parent().find("input:odd").val();
         var quantity = 1;
 
         $.ajaxSetup({
@@ -637,7 +648,7 @@
    $.ajax({
           type:'POST',
           url:"{{ route('addToCart') }}",
-          data:{productId:productId, quantity:quantity},
+          data:{productId:productId, productSku: productSku, quantity:quantity},
           success:function(data){
              console.log(JSON.parse(data.cart));
           }

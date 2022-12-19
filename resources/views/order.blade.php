@@ -134,7 +134,7 @@ $.ajax({
             data:{order_id:order_id, status:status},
             success:function(data){
                 
-                console.log('klllllllllllllll');
+                console.log(data);
             }
         });
 

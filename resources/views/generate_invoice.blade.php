@@ -102,6 +102,7 @@
             <tr>
                 <td>Order Id:</td>
                 <td>{{$data['invoice']->id}}</td>
+                
 
                 <td>Full Name:</td>
                 <td>{{$data['user']->name}}</td>
@@ -143,7 +144,7 @@
             </tr>
             <tr class="bg-blue">
                 <th>ID</th>
-              
+                <th>Sku</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
@@ -154,7 +155,7 @@
            
             <tr>
                 <td width="10%">{{$product->product_id}}</td>
-                
+                <td width="10%">{{$product->sku}}</td>
                 <td width="10%">{{$product->singlePrice}}</td>
                 <td width="10%">{{$product->quantity}}</td>
                 <td width="15%" class="fw-bold">{{$product->singlePrice * $product->quantity}}</td>
@@ -162,14 +163,14 @@
             </tr>
             @endforeach
             <tr>
-            <td colspan="3" >Shipping- </td>
-            <td colspan="1" >150</td>
+            <td colspan="4" >Shipping- </td>
+            <td colspan="1" >{{$data['invoice']->shipping_charge}}</td>
             </tr>
             
             <tr>
                 
-                <td colspan="3" class="total-heading">Total Amount - <small>Inc. all vat/tax</small> :</td>
-                <td colspan="1" class="total-heading">{{$data['total']}}</td>
+                <td colspan="4" class="total-heading">Total Amount - <small>Inc. all vat/tax</small> :</td>
+                <td colspan="1" class="total-heading">{{$data['total'] + $data['invoice']->shipping_charge}}</td>
             </tr>
         </tbody>
     </table>

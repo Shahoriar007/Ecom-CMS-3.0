@@ -98,12 +98,32 @@ class OrderdetailController extends Controller
         $all = $request->all();
         $id = $all['order_id'];
         $status = $all['status'];
+
+        if($status == "complete"){
+            $purchasedProducts = DB::table('orderdetails')->where('orderinvoice_id', $id)->get();
+            foreach($purchasedProducts as $product){
+                $productId = $product->product_id;
+                $productSku = $product->sku;
+                $stock = DB::table('stocks')->where('product_id', $productId)->where('sku', $productSku)->get();
+                $totalStock = $stock[0]->totalStock - $product->quantity ;
+                DB::table('stocks')->where('product_id', $productId)->where('sku', $productSku)->update([
+                    'totalStock' => $totalStock
+                ])   ;
+            }
+        }
+        else{
+
+        }
         DB::table('invoices')
         ->where('id', $id)
         ->update([
             'status' => $status
         ]);
-        return response()->json(['hi'=>'hiiiiiiiiiiiiii']);
+
+        return response()->json(['hi'=>'hiiiiiiiiii']);
+
+       
+        
 
       
         

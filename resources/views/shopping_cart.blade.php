@@ -43,7 +43,7 @@
             <!----------------dynamic logo---------------->
                 <div class="header-item-left">
                     <a href="{{route('welcome')}}" class="brand">
-                        <img src="{{asset('images/'. $logo->image)}}" alt="logo not found">
+                        <img src="{{url('photos/'. $logo->image)}}" alt="logo not found">
                     </a>
                 </div>
             <!------------daynamic navigation bar-------------------->
@@ -61,21 +61,23 @@
                                 <a href="#">Products <i class="fas fa-chevron-down"></i> </a>
                                 <div class="menu-subs menu-mega menu-column-4">
                                 @foreach($catagories as $catagory)
+                                @if($catagory->status == "enable")
                                     <div class="list-item text-center">
                                         <a href="{{'/catagory/' . $catagory->id}}">
-                                            <img src="{{asset('images/'.$catagory->image)}}" loading="lazy"
+                                            <img src="{{url('photos/'.$catagory->image)}}" loading="lazy"
                                                 alt="Product Images">
                                             <h4 class="title">{{$catagory->catagoryName}}</h4>
                                         </a> 
                                     </div>
+                                    @endif
                                 @endforeach
                                 </div>
                             </li>
 
                             @foreach($navigation as $navItem)
-               
+                            @if($navItem->status == "enable")
                             <li class="menu-item"><a href="{{$navItem->url}}">{{$navItem->title}}</a></li>
-               
+                            @endif
                             @endforeach
 
                            
@@ -267,7 +269,7 @@
                                 <tr>
                                     <th class="pro-thumbnail">Thumbnail</th>
                                     <th class="pro-title">Product</th>
-                                    
+                                   
                                     <th class="pro-price">Price</th>
                                     <th class="pro-quantity">Quantity</th>
                                     <th class="pro-subtotal">Total</th>
@@ -279,15 +281,16 @@
                                 @foreach( Session::get('cart') as $product)
                                 <tr>
                                     <td class="pro-thumbnail"><a href="#"><img class="img-responsive"
-                                                src="{{asset('images/'. $product->thumbnail)}}" alt="Product" /></a></td>
+                                                src="{{url('photos/'. $product->thumbnail)}}" alt="Product" /></a></td>
                                     <td class="pro-title"><a href="#">{{$product->name}}</a></td>
                                     
                                     <td class="pro-price tk-part"><span class="tk-sign">{{$product->price}}</span></td>
                                     <td class="pro-quantity">
                                         <div class="product-count">
                                             <form action="#" class="display-flex">
+                                                <input type="hidden" value="{{$product->sku}}" id="prod-sku">
                                                 <div class="increment-wrapper">
-                                                        <input type="text" value="{{$product->qty}}" readonly id="">
+                                                        <input type="text" value="{{$product->qty}}" readonly id="prod-qty">
                                                         <input type="hidden" value="{{$product->id}}" id="prod-id">
                                                         <button class="button-qty inc" type="button">
                                                             <i class="fas fa-sort-up"></i></button>
@@ -303,6 +306,7 @@
                                     <form action="{{route('removeCartProduct')}}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                    <input type="hidden" value="{{$product->sku}}" name="product_sku" id="product_sku">
                                                     <button type="submit" class="remove">remove</button>
                                                 </form>
                                     </td>
@@ -502,7 +506,8 @@
         var $button = $(this);
         var oldQuantity = $button.parent().find("input:even").val();
         var productId = $button.parent().find("input:odd").val();
-        console.log(oldQuantity,productId);
+        var productSku = $button.parent().prev().val();
+        console.log(oldQuantity,productId,productSku);
         var newQuantity;
         $button.blur();
         if ($button.hasClass("inc")) {
@@ -526,7 +531,7 @@
         $.ajax({
             type:'POST',
             url:"{{ route('updateShoppingCart') }}",
-            data:{productId:productId, newQuantity:newQuantity},
+            data:{productId:productId, newQuantity:newQuantity, productSku:productSku},
             success:function(data){
                 var productPrice = $button.parents(".pro-quantity").prev().text();
                 $button.parent().find("input:even").val(newQuantity);
@@ -536,7 +541,7 @@
                 var subTotal = cart.reduce(function(accumulator,currentItem){
                     return accumulator + (currentItem.qty * currentItem.price);
                 },0);
-                var grandTotal = subTotal + 150;
+                var grandTotal = subTotal ;
                 //console.log(grandTotal);
                 $button.parents(".cart-detail-row").next().find("td.sub-total").text(subTotal);
                 $button.parents(".cart-detail-row").next().find("td.grand-total").text(grandTotal);

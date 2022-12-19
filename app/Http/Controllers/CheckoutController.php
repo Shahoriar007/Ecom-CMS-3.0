@@ -41,6 +41,13 @@ class CheckoutController extends Controller
         $address = $request->input('address');
         $city = $request->input('city');
         $zip = $request->input('zip');
+        $shipping = $request->input('shipping');
+        if($shipping == 1){
+            $shipping = 80;
+        }
+        else{
+            $shipping = 150;
+        }
         //storing order in order invoice table
         $invoice = new Invoice();
         $invoice['name'] = $name;
@@ -51,6 +58,7 @@ class CheckoutController extends Controller
         $invoice['zip'] = $zip;
         $invoice['status'] = "pending";
         $invoice['user_id'] = Auth::guard('web')->user()->id;
+        $invoice['shipping_charge'] = $shipping;
         $invoice->save();
         
         //stroring order info in order products table
@@ -59,6 +67,7 @@ class CheckoutController extends Controller
             $orderDetail = new Orderdetail();
             $orderDetail['orderinvoice_id'] = $invoice['id'];
             $orderDetail['product_id'] = $item->id;
+            $orderDetail['sku'] = $item->sku;
             $orderDetail['user_id'] = Auth::guard('web')->user()->id;
             $orderDetail['quantity'] = $item->qty;
             $orderDetail['singlePrice'] = $item->price;

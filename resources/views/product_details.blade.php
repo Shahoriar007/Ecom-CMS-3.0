@@ -43,7 +43,7 @@
             <!----------------dynamic logo---------------->
                 <div class="header-item-left">
                     <a href="{{route('welcome')}}" class="brand">
-                        <img src="{{asset('images/'. $logo->image)}}" alt="logo not found">
+                        <img src="{{url('photos/'. $logo->image)}}" alt="logo not found">
                     </a>
                 </div>
             <!------------daynamic navigation bar-------------------->
@@ -61,21 +61,23 @@
                                 <a href="#">Products <i class="fas fa-chevron-down"></i> </a>
                                 <div class="menu-subs menu-mega menu-column-4">
                                 @foreach($catagories as $catagory)
+                                @if($catagory->status == "enable")
                                     <div class="list-item text-center">
                                         <a href="{{'/catagory/' . $catagory->id}}">
-                                            <img src="{{asset('images/'.$catagory->image)}}" loading="lazy"
+                                            <img src="{{url('photos/'.$catagory->image)}}" loading="lazy"
                                                 alt="Product Images">
                                             <h4 class="title">{{$catagory->catagoryName}}</h4>
                                         </a> 
                                     </div>
+                                    @endif
                                 @endforeach
                                 </div>
                             </li>
 
                             @foreach($navigation as $navItem)
-               
+                            @if($navItem->status == "enable")
                             <li class="menu-item"><a href="{{$navItem->url}}">{{$navItem->title}}</a></li>
-               
+                            @endif
                             @endforeach
 
                            
@@ -268,12 +270,11 @@
                                     @foreach($images as $image)
                                  
                                     <div class="swiper-slide easyzoom easyzoom--overlay">
-                                        <a href="{{asset('images/' . $image->image)}}">
-                                            <img src="{{asset('images/' . $image->image)}}" alt="img not found" />
+                                        <a href="{{url('photos/' . $image->image)}}">
+                                            <img src="{{url('photos/'. $image->image)}}" alt="img not found" />
                                         </a>
                                     </div>
                                     
-                                
                                     @endforeach
                                     
                                     
@@ -288,7 +289,7 @@
                                 <div class="swiper-wrapper">
                                     @foreach($images as $image)
                                     <div class="swiper-slide">
-                                        <img src="{{asset('images/' . $image->image)}}" alt="" />
+                                        <img src="{{url('photos/'. $image->image)}}" alt="" />
                                     </div>
                                     @endforeach
                                     
@@ -306,7 +307,7 @@
                     <div class="product-details">
                         <h2 style="font-size: 22px;">{{$productDetail->productName}}</h2>
                         <div class="product-code">
-                            <span class="code-title">Product Code: </span>
+                            <span class="code-title">Product Code: {{$stockDetail[0]->sku}} </span>
                             <span class="code-no">{{$productDetail->id}}</span>
                         </div>
                         <div class="price-div">
@@ -348,6 +349,7 @@
                     <div class="add-to-cart-lg">
                     <form>
                                         <input type="hidden" class="pro-id" value="{{$productDetail->id}}"/>
+                                        <input type="hidden" class="pro-sku" value="{{$stockDetail[0]->sku}}" />
                                         <button type="button" class="btn-add-to-cart btn-submit btn btn-primary" >
                                             
                                         ADD TO CART
@@ -653,7 +655,8 @@
         e.preventDefault();
 
         var $button = $(this);
-        var productId = $button.parent().find("input").val();
+        var productId = $button.parent().find("input:even").val();
+        var productSku = $button.parent().find("input:odd").val();
         var quantity = 1;
 
         $.ajaxSetup({
@@ -665,7 +668,7 @@
    $.ajax({
           type:'POST',
           url:"{{ route('addToCart') }}",
-          data:{productId:productId, quantity:quantity},
+          data:{productId:productId, productSku: productSku, quantity:quantity},
           success:function(data){
              console.log(JSON.parse(data.cart));
           }

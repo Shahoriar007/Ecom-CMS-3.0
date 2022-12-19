@@ -41,10 +41,12 @@ class CartController extends Controller
     public function addToCart(Request $request){
         //$request->session()->forget('cart');
         $productId = $request->input('productId');
+        $productSku = $request->input('productSku');
         $quantity = $request->input('quantity');
         $product = Product::find($productId);
         $cartProduct = (object) array(
             'id' => $product->id,
+            'sku'=> $productSku,
             'name' =>$product->productName,
             'price' => $product->price,
             'thumbnail' => $product->image1,
@@ -54,7 +56,7 @@ class CartController extends Controller
         if($oldCart){
             $inCart = false;
             foreach($oldCart as $item){
-                if($item->id == $productId){
+                if($item->id == $productId && $item->sku == $productSku){
                     $item->qty++;
                     $inCart = true;
                     break;
@@ -80,11 +82,12 @@ class CartController extends Controller
     }
     public function updateCart(Request $request){
         $productId = $request->input('productId');
+        $productSku = $request->input('productSku');
         $quantity = $request->input('newQuantity');
         $product = Product::find($productId);
         $cart  = $request->session()->get('cart');
         foreach($cart as $item){
-            if($item->id == $productId){
+            if($item->id == $productId && $item->sku == $productSku){
                 $item->qty = $quantity ;
                 break;
             }
@@ -100,11 +103,12 @@ class CartController extends Controller
         $logo = Logo::get()->last();
         $navigation = Navbar::all();
         $product_id = $request->input('product_id');
+        $productSku = $request->input('product_sku');
+       
         $cart = $request->session()->get('cart');
-        
         foreach($cart as $key=>$item){
             
-            if($cart[$key]->id == $product_id){
+            if($cart[$key]->id == $product_id && $cart[$key]->sku == $productSku){
                 unset($cart[$key]);
                 $newcart = array_values($cart);
                 $request->session()->put('cart', $newcart);

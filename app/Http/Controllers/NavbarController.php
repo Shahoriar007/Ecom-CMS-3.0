@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Navbar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NavbarController extends Controller
 {
@@ -14,7 +15,9 @@ class NavbarController extends Controller
      */
     public function index()
     {
-        return view('navbar');
+        $navs = Navbar::all();
+
+         return view('navbar',compact('navs'));
     }
 
     /**
@@ -40,8 +43,9 @@ class NavbarController extends Controller
             'url' => $request->url,
             
          ]);
+         $navs = Navbar::all();
 
-         return view('navbar');
+         return view('navbar',compact('navs'));
     }
 
     /**
@@ -84,8 +88,21 @@ class NavbarController extends Controller
      * @param  \App\Models\Navbar  $navbar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Navbar $navbar)
+    public function destroy(Request $request,Navbar $navbar)
     {
-        //
+        $id = $request->input('nav_id');
+        DB::table('navbars')->where('id',$id)->delete();
+        $navs = Navbar::all();
+
+        return view('navbar',compact('navs'));
+    }
+
+    public function updateNavStatus(Request $request){
+        $id = $request->get('id');
+        $status = $request->get('status');
+        DB::table('navbars')->where('id',"=",$id)->update([
+            'status' => $status
+        ]);
+        return response()->json(['ji'=>'hiiiiiiiiiiiiiiiiiiii']);
     }
 }

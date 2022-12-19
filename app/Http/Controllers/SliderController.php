@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Image;
 
 class SliderController extends Controller
 {
@@ -14,7 +16,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        return view('slider');
+        $sliders = Slider::all();
+        return view('slider',compact('sliders'));
     }
 
     /**
@@ -38,7 +41,8 @@ class SliderController extends Controller
         if($request->file('image')){
             $file = $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('../public/images'), $filename);
+            Image::make($file)->save('photos/'.$filename);
+            $save_url = 'photos/'.$filename;
             $slider = new Slider();
             $slider['text']=$request->sliderText;
             $slider['image']=$filename;
@@ -46,7 +50,8 @@ class SliderController extends Controller
  
         }
         $slider->save();
-        return view('slider');  
+        $sliders = Slider::all();
+        return view('slider',compact('sliders'));  
     }
 
     /**
@@ -89,8 +94,20 @@ class SliderController extends Controller
      * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slider $slider)
+    public function destroy(Request $request,Slider $slider)
     {
-        //
+        $id = $request->input('slider_id');
+        DB::table('sliders')->where('id',$id)->delete();
+        $sliders = Slider::all();
+        return view('slider',compact('sliders'));
+        
+    }
+    public function updateSliderStatus(Request $request){
+        $id = $request->get('id');
+        $status = $request->get('status');
+        DB::table('sliders')->where('id',"=",$id)->update([
+            'status' => $status
+        ]);
+        return response()->json(['ji'=>'hiiiiiiiiiiiiiiiiiiii']);
     }
 }

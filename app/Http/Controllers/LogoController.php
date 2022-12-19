@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Logo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Image;
 
 class LogoController extends Controller
 {
@@ -13,8 +15,10 @@ class LogoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+
     {
-        return view('logo');
+        $logos = Logo::all();
+        return view('logo',compact('logos'));
     }
 
     /**
@@ -38,13 +42,15 @@ class LogoController extends Controller
         if($request->file('image')){
             $file = $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('../public/images'), $filename);
+            Image::make($file)->resize(300,300)->save('photos/'.$filename);
+            $save_url = 'photos/'.$filename;
             $logo = new Logo();
             $logo['image']=$filename;
  
         }
         $logo->save();
-        return view('logo');
+        $logos = Logo::all();
+        return view('logo',compact('logos'));
 
     }
 
@@ -88,8 +94,20 @@ class LogoController extends Controller
      * @param  \App\Models\Logo  $logo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Logo $logo)
+    public function destroy(Request $request,Logo $logo)
     {
-        //
+        $id = $request->input('logo_id');
+        DB::table('logos')->where('id',$id)->delete();
+        $logos = Logo::all();
+        return view('logo',compact('logos'));
+    }
+
+    public function updateLogoStatus(Request $request){
+        $id = $request->get('id');
+        $status = $request->get('status');
+        DB::table('logos')->where('id',"=",$id)->update([
+            'status' => $status
+        ]);
+        return response()->json(['ji'=>'hiiiiiiiiiiiiiiiiiiii']);
     }
 }

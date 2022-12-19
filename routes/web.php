@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
-Route::get('/product/details/{id}',[ProductController::class,'show'])->name('showProduct');
+Route::get('/product/details/{id}/{sku}',[ProductController::class,'show'])->name('showProduct');
 Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('addToCart');
 Route::get('/view-cart',[CartController::class,'viewCart'])->middleware(['auth'])->name('shoppingCart');
 Route::post('/update-cart',[CartController::class,'updateCart'])->name('updateShoppingCart');
@@ -47,8 +47,6 @@ Route::get('/allProducts',[ProductController::class,'showAllProducts'])->name('a
 Route::get('/dashboard', [UserController::class, 'viewDashboard'] )->middleware(['auth'])->name('dashboard');
 Route::get('/view/order/{id}', [UserController::class,'viewOrder'])->middleware(['auth']);
 Route::post('/address', [UserController::class,'editAddress'])->middleware(['auth'])->name('editAddress');
-
-
 
 require __DIR__.'/auth.php';
 
@@ -84,7 +82,22 @@ Route::prefix('admin')->group(function(){
     Route::get('/invoice/{id}/generate',[InvoiceController::class,'generateInvoice']);
     /*Route::get('/update-order-status',[OrderdetailController::class,'index'])->middleware(['auth:admin', 'verified'])->name('orderStatus');*/
     Route::post('/orderStatus',[OrderdetailController::class,'store'])->middleware(['auth:admin', 'verified'])->name('orderStatus');
-       
+    Route::post('/update/product',[ProductController::class,'update'])->middleware(['auth:admin', 'verified'])->name('updateProduct');
+    Route::post('/delete/product',[ProductController::class,'destroy'])->middleware(['auth:admin', 'verified'])->name('deleteProduct');
+    Route::post('/update/product/status',[ProductController::class,'updateStatus'])->middleware(['auth:admin', 'verified'])->name('updateStatus');
+    Route::post('/delete/catagory',[CatagoryController::class,'destroy'])->middleware(['auth:admin', 'verified'])->name('deleteCatagory');
+    Route::post('/update/catagory/status',[CatagoryController::class,'updateCatagoryStatus'])->middleware(['auth:admin', 'verified'])->name('updateCatagoryStatus');
+    Route::post('/delete/logo',[LogoController::class,'destroy'])->middleware(['auth:admin', 'verified'])->name('deleteLogo');
+    Route::post('/update/logo/status',[LogoController::class,'updateLogoStatus'])->middleware(['auth:admin', 'verified'])->name('updateLogoStatus');
+    Route::post('/delete/nav',[NavbarController::class,'destroy'])->middleware(['auth:admin', 'verified'])->name('deleteNav');
+
+    Route::post('/update/nav/status',[NavbarController::class,'updateNavStatus'])->middleware(['auth:admin', 'verified'])->name('updateNavStatus');
+    Route::post('/delete/slider',[SliderController::class,'destroy'])->middleware(['auth:admin', 'verified'])->name('deleteSlider');
+    Route::post('/update/slider/status',[SliderController::class,'updateSliderStatus'])->middleware(['auth:admin', 'verified'])->name('updateSliderStatus');
+
+
+
+
 });
  
 require __DIR__.'/adminauth.php';

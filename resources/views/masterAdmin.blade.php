@@ -13,6 +13,8 @@
     <!-- Page Title  -->
     <title>DashLite Template</title>
     <!-- StyleSheets  -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="{{ asset('adminFrontend/assets/css/dashlite.css?ver=3.1.1')}}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('adminFrontend/assets/css/theme.css?ver=3.1.1')}}">
 </head>
@@ -41,17 +43,25 @@
     <script src="{{ asset('adminFrontend/assets/js/bundle.js?ver=3.1.1')}}"></script>
     <script src="{{ asset('adminFrontend/assets/js/scripts.js?ver=3.1.1')}}"></script>
     <!----Jquery----->
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('assets/js/jquery-3.6.0.min.js')}}"></script>
     <!--=====popper js=====-->
-    <script src="assets/js/popper.min.js"></script>
+    <script src="{{ asset('assets/js/popper.min.js')}}"></script>
     <!--=====bootstrap=====-->
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
     <!--=====Owl carousel=====-->
-    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="{{ asset('assets/js/owl.carousel.min.js')}}"></script>
     <!--=====header script=====-->
-    <script src="assets/js/script.js"></script>
+    <script src="{{ asset('assets/js/script.js')}}"></script>
     <!--=====header script=====-->
-    <script src="assets/js/main.js"></script>
+    <script src="{{ asset('assets/js/main.js')}}"></script>
+    <!--=====modal script=====-->
+    
+    <script src="{{ asset('//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js')}}"></script>
+    <script src="{{ asset('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js')}}"> </script>
+    <script src="{{ asset('http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false')}}"></script>
+    <script src="{{ asset('bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('bootstrap/js/bootstrap-modal.js')}}"></script>
+    <script src="{{ asset('bootstrap/js/bootstrap-transition.js')}}"></script>
 
 
 </html>

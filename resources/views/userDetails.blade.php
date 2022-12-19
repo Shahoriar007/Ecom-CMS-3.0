@@ -43,7 +43,7 @@
             <!----------------dynamic logo---------------->
                 <div class="header-item-left">
                     <a href="{{route('welcome')}}" class="brand">
-                        <img src="{{asset('images/'. $logo->image)}}" alt="logo not found">
+                        <img src="{{url('photos/'. $logo->image)}}" alt="logo not found">
                     </a>
                 </div>
             <!------------daynamic navigation bar-------------------->
@@ -61,21 +61,24 @@
                                 <a href="#">Products <i class="fas fa-chevron-down"></i> </a>
                                 <div class="menu-subs menu-mega menu-column-4">
                                 @foreach($catagories as $catagory)
+                                @if($catagory->status == "enable")
                                     <div class="list-item text-center">
                                         <a href="{{'/catagory/' . $catagory->id}}">
-                                            <img src="{{asset('images/'.$catagory->image)}}" loading="lazy"
+                                            <img src="{{url('photos/'.$catagory->image)}}" loading="lazy"
                                                 alt="Product Images">
                                             <h4 class="title">{{$catagory->catagoryName}}</h4>
                                         </a> 
                                     </div>
+                                    @endif
                                 @endforeach
                                 </div>
                             </li>
 
                             @foreach($navigation as $navItem)
+                            @if($navItem->status == "enable")
                
                             <li class="menu-item"><a href="{{$navItem->url}}">{{$navItem->title}}</a></li>
-               
+                            @endif
                             @endforeach
 
                            

@@ -39,50 +39,50 @@
     <header class="header" id="header-area">
         <div class="container">
             <section class="wrapper">
-            <!----------------dynamic logo---------------->
+                <!----------------dynamic logo---------------->
                 <div class="header-item-left">
                     <a href="{{route('welcome')}}" class="brand">
-                        <img src="{{asset('images/'. $logo->image)}}" alt="logo not found">
+                        <img src="{{url('photos/'. $logo->image)}}" alt="logo not found">
                     </a>
                 </div>
-            <!------------daynamic navigation bar-------------------->
+                <!------------daynamic navigation bar-------------------->
                 <div class="header-item-center">
                     <div class="overlay"></div>
                     <nav class="menu" id="menu">
                         <div class="menu-mobile-header">
-                            <button type="button" class="menu-mobile-arrow"><i
-                                    class="ion ion-ios-arrow-back"></i></button>
+                            <button type="button" class="menu-mobile-arrow"><i class="ion ion-ios-arrow-back"></i></button>
                             <div class="menu-mobile-title"></div>
                             <button type="button" class="menu-mobile-close"><i class="ion ion-ios-close"></i></button>
                         </div>
                         <ul class="menu-section mb-0">
-                        <li class="menu-item-has-children">
+                            <li class="menu-item-has-children">
                                 <a href="#">Products <i class="fas fa-chevron-down"></i> </a>
                                 <div class="menu-subs menu-mega menu-column-4">
-                                @foreach($catagories as $catagory)
+                                    @foreach($catagories as $catagory)
+                                    @if($catagory->status == "enable")
                                     <div class="list-item text-center">
                                         <a href="{{'/catagory/' . $catagory->id}}">
-                                            <img src="{{asset('images/'.$catagory->image)}}" loading="lazy"
-                                                alt="Product Images">
+                                            <img src="{{url('photos/'.$catagory->image)}}" loading="lazy" alt="Product Images">
                                             <h4 class="title">{{$catagory->catagoryName}}</h4>
-                                        </a> 
+                                        </a>
                                     </div>
-                                @endforeach
+                                    @endif
+                                    @endforeach
                                 </div>
                             </li>
 
                             @foreach($navigation as $navItem)
-               
+                            @if($navItem->status == "enable")
                             <li class="menu-item"><a href="{{$navItem->url}}">{{$navItem->title}}</a></li>
-               
+                            @endif
                             @endforeach
 
-                           
+
                         </ul>
                     </nav>
                 </div>
 
-            <!-------------search, mini cart,sidenav---------------->
+                <!-------------search, mini cart,sidenav---------------->
                 <div class="header-right-meta text-right header-item-righ">
                     <ul>
                         <li><a href="#" class="modal-active"><i class="fa fa-search"></i></a></li>
@@ -95,8 +95,9 @@
                                 </dl>
                             </div>
                         </li>
-                        <li class="shop-cart">                                       <!--onclick="openNav()"-->
-                        <a href="{{route('shoppingCart')}}"><i class="fa fa-shopping-bag" style="font-size: 20px;" ></i> </a>
+                        <li class="shop-cart">
+                            <!--onclick="openNav()"-->
+                            <a href="{{route('shoppingCart')}}"><i class="fa fa-shopping-bag" style="font-size: 20px;"></i> </a>
                             <div id="mySidenav" class="sidenav">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Close</a>
 
@@ -105,8 +106,7 @@
                                     <div class="mini-cart-body">
                                         <div class="single-cart-item d-flex">
                                             <figure class="product-thumb">
-                                                <a href="#"><img class="img-fluid"
-                                                        src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
+                                                <a href="#"><img class="img-fluid" src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
                                             </figure>
 
                                             <div class="product-details">
@@ -141,8 +141,7 @@
                                         </div>
                                         <div class="single-cart-item d-flex">
                                             <figure class="product-thumb">
-                                                <a href="#"><img class="img-fluid"
-                                                        src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
+                                                <a href="#"><img class="img-fluid" src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
                                             </figure>
                                             <div class="product-details">
                                                 <h2><a href="#">Sprite Yoga Companion</a></h2>
@@ -174,8 +173,7 @@
                                         </div>
                                         <div class="single-cart-item d-flex">
                                             <figure class="product-thumb">
-                                                <a href="#"><img class="img-fluid"
-                                                        src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
+                                                <a href="#"><img class="img-fluid" src="assets/img/product/panjabi/p1.jpg" alt="Products" /></a>
                                             </figure>
                                             <div class="product-details">
                                                 <h2><a href="#">Sprite Yoga Companion</a></h2>
@@ -254,89 +252,93 @@
 
 
 
-<!--== Page Content Wrapper Start ==-->
-<div class="main-content pb-60">
-    <div class="container container-xxl">
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- My Account Page Start -->
-                <div class="myaccount-page-wrapper">
-                    <!-- My Account Tab Menu Start -->
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="myaccount-tab-menu nav" role="tablist">
-                            <a href="{{route('dashboard')}}"  >
-                                    Dashboard</a>
+    <!--== Page Content Wrapper Start ==-->
+    <div class="main-content pb-60">
+        <div class="container container-xxl">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- My Account Page Start -->
+                    <div class="myaccount-page-wrapper">
+                        <!-- My Account Tab Menu Start -->
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="myaccount-tab-menu nav" role="tablist">
+                                    <a href="{{route('dashboard')}}">
+                                        Dashboard</a>
 
-                                    <a href="{{route('orders')}}" class="active" >Orders</a>
+                                    <a href="{{route('orders')}}" class="active">Orders</a>
 
-                                <a href="{{route('address')}}">address</a>
+                                    <a href="{{route('address')}}">address</a>
 
-                                <a href="{{route('details')}}">Account Details</a>
+                                    <a href="{{route('details')}}">Account Details</a>
 
-                                <span><form method="POST" action="{{ route('logout') }}">
-                                                    @csrf
-                                    <button class="btn btn-danger" type="submit">Logout</button>
-                                </form></span>
+                                    <span>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button class="btn btn-danger" type="submit">Logout</button>
+                                        </form>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <!-- My Account Tab Menu End -->
+                            
+                            <!-- My Account Tab Menu End -->
 
-                        <!-- My Account Tab Content Start -->
-                        <div class="col-lg-9 mt-5 mt-lg-0">
-                            <div class="tab-content" id="myaccountContent">
-                                
-                                <!-- Single Tab Content Start -->
-                                <div >
-                                    <div class="myaccount-content">
-                                        <h3>Orders</h3>
 
-                                        <div class="myaccount-table table-responsive text-center">
-                                            <table class="table table-bordered">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>Order</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
-                                                 
-                                                    <th>Order detail</th>
-                                                </tr>
-                                                </thead>
+                            <!-- My Account Tab Content Start -->
+                            <div class="col-lg-9 mt-5 mt-lg-0">
+                                <div class="tab-content" id="myaccountContent">
 
-                                                <tbody>
-                                                @if($orders)
-                                                    <?php $index = 0; ?>
-                                                    @foreach($orders as $order)
-                                                    <?php $index++; ?>
-                                                    <td>{{$index}}</td>
-                                                    <td>{{$order->created_at}}</td>
-                                                    <td>{{$order->status}}</td>
-                                                   
-                                                    <td><a href="{{url('/view/order/'.$order->id)}}" class="btn-add-to-cart">view</a></td>
-</tr>
-                                                    @endforeach
-                                                @endif
-                                                </tbody>
-                                            </table>
+                                    <!-- Single Tab Content Start -->
+                                    <div>
+                                        <div class="myaccount-content">
+                                            <h3>Orders</h3>
+
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Order</th>
+                                                            <th>Date</th>
+                                                            <th>Status</th>
+
+                                                            <th>Order detail</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        @if($orders)
+                                                        <?php $index = 0; ?>
+                                                        @foreach($orders as $order)
+                                                        <?php $index++; ?>
+                                                        <td>{{$index}}</td>
+                                                        <td>{{$order->created_at}}</td>
+                                                        <td>{{$order->status}}</td>
+
+                                                        <td><a href="{{url('/view/order/'.$order->id)}}" class="btn-add-to-cart">view</a></td>
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
+                                    <!-- Single Tab Content End -->
+
+
+
+
                                 </div>
-                                <!-- Single Tab Content End -->
-
-                               
-
-                                
                             </div>
+                            <!-- My Account Tab Content End -->
                         </div>
-                        <!-- My Account Tab Content End -->
                     </div>
+                    <!-- My Account Page End -->
                 </div>
-                <!-- My Account Page End -->
             </div>
         </div>
     </div>
-</div>
-<!--== Page Content Wrapper End ==-->
+    <!--== Page Content Wrapper End ==-->
     <!--===============Footer start=============-->
     <footer class="d-flex-column" style="border-top: 1px solid #c5c5c5;">
         <div class="container container-xxl text-left p-tb-60 ">
@@ -516,7 +518,7 @@
 
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // product Gallery and Zoom
             // activation carousel plugin
             var galleryThumbs = new Swiper('.gallery-thumbs', {
@@ -525,7 +527,7 @@
                 watchSlidesVisibility: true,
                 watchSlidesProgress: true,
                 on: {
-                    init: function () {
+                    init: function() {
                         console.log('swiper initialized');
                         // activation zoom plugin
                         var $easyzoom = $('.easyzoom').easyZoom();

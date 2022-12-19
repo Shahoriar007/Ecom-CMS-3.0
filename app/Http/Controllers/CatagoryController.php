@@ -7,6 +7,8 @@ use App\Models\Product;
 use App\Models\Logo;
 use App\Models\Navbar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Image;
 
 class CatagoryController extends Controller
 {
@@ -17,7 +19,8 @@ class CatagoryController extends Controller
      */
     public function index()
     {
-        return view('catagory');
+        $catagories = Catagory::all();
+        return view('catagory',compact('catagories'));
     }
 
     /**
@@ -43,14 +46,16 @@ class CatagoryController extends Controller
         {
         $file = $request->file('image');
         $filename= date('YmdHi').$file->getClientOriginalName();
-        $file-> move(public_path('../public/images'), $filename);
+        Image::make($file)->resize(300,300)->save('photos/'.$filename);
+        $save_url = 'photos/'.$filename;
         $catagory = new Catagory();
         $catagory['catagoryName'] = $request->catagoryName;
         $catagory['image'] = $filename;
         $catagory->save();
     }
         
-        return view('catagory');
+    $catagories = Catagory::all();
+    return view('catagory',compact('catagories'));
     }
 
     /**
@@ -90,7 +95,7 @@ class CatagoryController extends Controller
      */
     public function update(Request $request, Catagory $catagory)
     {
-        //
+        
     }
 
     /**
@@ -99,8 +104,21 @@ class CatagoryController extends Controller
      * @param  \App\Models\Catagory  $catagory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Catagory $catagory)
+    public function destroy(Request $request,Catagory $catagory)
     {
-        //
+        $id = $request->input('catagory_id');
+        DB::table('catagories')->where('id',$id)->delete();
+        $catagories = Catagory::all();
+        return view('catagory',compact('catagories'));
+
+    }
+
+    public function updateCatagoryStatus(Request $request){
+        $id = $request->get('id');
+        $status = $request->get('status');
+        DB::table('catagories')->where('id',"=",$id)->update([
+            'status' => $status
+        ]);
+        return response()->json(['ji'=>'hiiiiiiiiiiiiiiiiiiii']);
     }
 }
